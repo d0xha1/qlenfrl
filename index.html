@@ -2,12 +2,17 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
+
 <meta name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+      content="width=device-width,
+               initial-scale=1.0,
+               maximum-scale=1.0,
+               user-scalable=no">
 
 <title>🐦 비둘기와 스터디콜</title>
 
 <style>
+
 * {
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
@@ -20,106 +25,144 @@ body {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background: #17181c;
-  font-family: -apple-system, BlinkMacSystemFont,
-               "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+
+  background: #151619;
+
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Apple SD Gothic Neo",
+    "Noto Sans KR",
+    sans-serif;
 }
 
 body {
   color: white;
 }
 
-/* 전체 화면 */
+
+/* =================================
+   전체 앱
+================================= */
+
 .app {
+
   width: 100%;
   height: 100dvh;
+
   max-width: 480px;
+
   margin: 0 auto;
-  background: #1b1c20;
+
   position: relative;
+
   overflow: hidden;
+
+  background: #1b1c20;
 }
 
-/* =========================
-   비둘기 영상통화 화면
-========================= */
+
+/* =================================
+   비둘기 화면
+================================= */
 
 .pigeon-screen {
+
   position: absolute;
+
   top: 0;
   left: 0;
+
   width: 100%;
-  height: 52%;
-  min-height: 390px;
+  height: 35%;
 
   background:
     linear-gradient(
       145deg,
-      #edf2f8 0%,
-      #dbe5ed 55%,
-      #c7d2dc 100%
+      #edf3f8,
+      #d9e4ed
     );
 
   overflow: hidden;
+
+  z-index: 1;
 }
 
-/* 위쪽 정보 */
+
+/* 위쪽 제목 */
+
 .call-header {
+
   position: absolute;
-  top: 58px;
-  left: 28px;
-  right: 28px;
+
+  top: 42px;
+  left: 25px;
+  right: 25px;
 
   display: flex;
+
   justify-content: space-between;
   align-items: center;
 
   z-index: 20;
 
-  font-size: 18px;
+  font-size: 17px;
+
   font-weight: 700;
 }
 
 .call-title {
+
   display: flex;
+
   align-items: center;
+
   gap: 8px;
 }
 
 .red-dot {
-  width: 13px;
-  height: 13px;
+
+  width: 12px;
+  height: 12px;
+
   border-radius: 50%;
-  background: #ff4d72;
-  display: inline-block;
+
+  background: #ff4f73;
 }
 
 .call-time {
-  font-size: 15px;
+
+  font-size: 14px;
+
   font-weight: 500;
-  opacity: .8;
+
+  opacity: .75;
 }
 
+
 /* 창문 */
+
 .window {
+
   position: absolute;
 
-  right: 58px;
-  top: 112px;
+  right: 55px;
+  top: 90px;
 
-  width: 115px;
-  height: 190px;
+  width: 105px;
+  height: 105px;
 
-  border-radius: 18px;
+  border-radius: 17px;
 
-  background: #a9cee1;
-
-  overflow: hidden;
+  background: #afd0e2;
 
   opacity: .8;
+
+  overflow: hidden;
 }
 
 .window::before {
+
   content: "";
 
   position: absolute;
@@ -127,7 +170,7 @@ body {
   left: 50%;
   top: 0;
 
-  width: 6px;
+  width: 5px;
   height: 100%;
 
   transform: translateX(-50%);
@@ -136,6 +179,7 @@ body {
 }
 
 .window::after {
+
   content: "";
 
   position: absolute;
@@ -144,92 +188,118 @@ body {
   top: 50%;
 
   width: 100%;
-  height: 6px;
+  height: 5px;
 
   transform: translateY(-50%);
 
   background: rgba(255,255,255,.7);
 }
 
+
 /* 비둘기 */
+
 .pigeon {
+
   position: absolute;
 
   left: 50%;
-  top: 51%;
+  top: 61%;
 
-  transform: translate(-50%, -50%);
+  transform:
+    translate(-50%, -50%);
 
-  font-size: 145px;
+  font-size: 105px;
 
   filter:
-    drop-shadow(0 18px 15px rgba(0,0,0,.15));
+    drop-shadow(
+      0 12px 12px rgba(0,0,0,.15)
+    );
 
   z-index: 10;
 
-  animation: pigeonFloat 3s ease-in-out infinite;
+  animation:
+    pigeonFloat 3s ease-in-out infinite;
 }
 
 @keyframes pigeonFloat {
 
-  0%, 100% {
-    transform: translate(-50%, -50%) translateY(0);
+  0%,100% {
+
+    transform:
+      translate(-50%, -50%)
+      translateY(0);
+
   }
 
   50% {
-    transform: translate(-50%, -50%) translateY(-7px);
+
+    transform:
+      translate(-50%, -50%)
+      translateY(-5px);
+
   }
 }
 
+
 /* 비둘기 상태 */
+
 .pigeon-status {
+
   position: absolute;
 
-  left: 32px;
-  bottom: 20px;
+  left: 25px;
+  bottom: 14px;
 
-  padding: 13px 20px;
+  padding: 9px 15px;
 
-  border-radius: 15px;
+  border-radius: 13px;
 
-  background: rgba(70,70,70,.65);
+  background:
+    rgba(70,70,70,.55);
 
-  backdrop-filter: blur(10px);
+  backdrop-filter:
+    blur(8px);
 
-  font-size: 15px;
-  font-weight: 600;
+  font-size: 13px;
 
   z-index: 20;
 }
 
-/* =========================
+
+/* =================================
    내 카메라
-========================= */
+================================= */
 
 .my-video {
+
   position: absolute;
 
-  left: 22px;
-  right: 22px;
+  left: 18px;
+  right: 18px;
 
-  top: 43%;
+  top: 33%;
 
-  height: 24%;
+  height: 21%;
 
-  border-radius: 25px;
+  border-radius: 23px;
 
   overflow: hidden;
 
   background: #111;
 
-  border: 2px solid rgba(255,255,255,.18);
+  border:
+    2px solid
+    rgba(255,255,255,.16);
 
-  box-shadow: 0 10px 30px rgba(0,0,0,.35);
+  box-shadow:
+    0 10px 25px
+    rgba(0,0,0,.35);
 
-  z-index: 30;
+  z-index: 10;
 }
 
 #camera {
+
   width: 100%;
   height: 100%;
 
@@ -243,83 +313,108 @@ body {
 }
 
 .camera-label {
+
   position: absolute;
 
-  left: 22px;
-  bottom: 18px;
+  left: 14px;
+  bottom: 12px;
 
-  padding: 10px 15px;
+  padding: 7px 11px;
 
-  border-radius: 13px;
+  border-radius: 11px;
 
-  background: rgba(40,40,40,.7);
+  background:
+    rgba(30,30,30,.7);
 
-  backdrop-filter: blur(8px);
+  backdrop-filter:
+    blur(7px);
 
-  font-size: 14px;
+  font-size: 12px;
 
   z-index: 5;
 }
 
-/* =========================
-   아래쪽 영역
-========================= */
 
-.bottom-area {
+/* =================================
+   컨트롤 영역
+================================= */
+
+.control-area {
+
   position: absolute;
 
   left: 0;
   right: 0;
+
   bottom: 0;
 
-  height: 48%;
+  height: 47%;
+
+  padding:
+    13px
+    18px
+    86px;
 
   background: #1b1c20;
 
-  padding: 16px 22px 100px;
+  z-index: 30;
 
-  z-index: 40;
+  overflow: hidden;
 }
 
-/* 공부시간 */
+
+/* =================================
+   공부시간 카드
+================================= */
+
 .study-card {
+
   width: 100%;
 
-  padding: 20px 18px 18px;
+  padding:
+    14px
+    15px
+    13px;
 
-  border-radius: 24px;
+  border-radius: 21px;
 
   background: #1d1e22;
 
-  border: 1px solid rgba(255,255,255,.1);
+  border:
+    1px solid
+    rgba(255,255,255,.09);
 
   box-shadow:
-    0 10px 30px rgba(0,0,0,.25);
+    0 7px 20px
+    rgba(0,0,0,.2);
 
   text-align: center;
 }
 
 .study-top {
+
   display: flex;
 
   justify-content: space-between;
   align-items: center;
 
-  margin-bottom: 5px;
-
   color: #aeb0b7;
 
-  font-size: 15px;
+  font-size: 14px;
 }
 
 .study-state {
+
   color: #83c9ff;
 }
 
 .timer {
-  margin: 7px 0 14px;
 
-  font-size: 46px;
+  margin:
+    4px 0
+    10px;
+
+  font-size: 38px;
 
   font-weight: 800;
 
@@ -328,23 +423,28 @@ body {
   color: white;
 }
 
+
 /* 공부 버튼 */
+
 .study-buttons {
+
   display: grid;
 
-  grid-template-columns: 1.2fr 1fr 1fr;
+  grid-template-columns:
+    1.2fr 1fr 1fr;
 
-  gap: 10px;
+  gap: 7px;
 }
 
 .study-buttons button {
+
   border: none;
 
-  border-radius: 16px;
+  border-radius: 14px;
 
-  padding: 14px 7px;
+  padding: 11px 4px;
 
-  font-size: 14px;
+  font-size: 12px;
 
   font-weight: 700;
 
@@ -352,37 +452,46 @@ body {
 
   color: white;
 
-  cursor: pointer;
+  white-space: nowrap;
 }
 
 .study-buttons button:active {
+
   transform: scale(.96);
 }
 
 .start-btn {
+
   background: white !important;
+
   color: #151515 !important;
 }
 
-/* =========================
-   백색 소음
-========================= */
+
+/* =================================
+   백색 소음 카드
+================================= */
 
 .noise-card {
-  margin-top: 13px;
+
+  margin-top: 9px;
 
   width: 100%;
 
-  padding: 14px 17px;
+  padding:
+    11px 14px;
 
-  border-radius: 20px;
+  border-radius: 18px;
 
   background: #24252a;
 
-  border: 1px solid rgba(255,255,255,.08);
+  border:
+    1px solid
+    rgba(255,255,255,.08);
 }
 
 .noise-row {
+
   display: flex;
 
   align-items: center;
@@ -391,52 +500,57 @@ body {
 }
 
 .noise-name {
-  font-size: 15px;
+
+  font-size: 14px;
 
   font-weight: 700;
 }
 
 .noise-toggle {
+
   border: none;
 
-  padding: 9px 15px;
+  padding:
+    7px 13px;
 
-  border-radius: 13px;
+  border-radius: 12px;
 
   background: #33343a;
 
   color: white;
 
-  font-weight: 700;
+  font-size: 12px;
 
-  font-size: 13px;
+  font-weight: 700;
 }
 
 .noise-toggle.on {
-  background: #ffffff;
+
+  background: white;
+
   color: #222;
 }
 
+
 /* 음량 */
+
 .volume-row {
+
   display: flex;
 
   align-items: center;
 
-  gap: 10px;
+  gap: 8px;
 
-  margin-top: 11px;
+  margin-top: 8px;
 
   color: #aaa;
 
-  font-size: 13px;
-}
-
-.volume-icon {
-  font-size: 16px;
+  font-size: 12px;
 }
 
 #volume {
+
   flex: 1;
 
   height: 4px;
@@ -445,27 +559,31 @@ body {
 }
 
 .volume-number {
-  width: 35px;
+
+  width: 32px;
 
   text-align: right;
 
   color: #ddd;
 }
 
-/* =========================
-   하단 통화 버튼
-========================= */
+
+/* =================================
+   하단 버튼
+================================= */
 
 .bottom-buttons {
+
   position: absolute;
 
   left: 0;
   right: 0;
+
   bottom: 0;
 
-  height: 82px;
+  height: 70px;
 
-  background: #0e0f11;
+  background: #0d0e10;
 
   display: flex;
 
@@ -473,121 +591,166 @@ body {
 
   align-items: center;
 
-  gap: 38px;
+  gap: 40px;
 
   z-index: 100;
 }
 
 .call-button {
-  width: 62px;
-  height: 62px;
 
-  border-radius: 50%;
+  width: 52px;
+  height: 52px;
 
   border: none;
 
+  border-radius: 50%;
+
   display: flex;
 
-  align-items: center;
   justify-content: center;
-
-  font-size: 25px;
+  align-items: center;
 
   background: #303136;
 
   color: white;
+
+  font-size: 22px;
 }
 
 .call-button:active {
+
   transform: scale(.92);
 }
 
 .hangup {
+
+  width: 58px;
+  height: 58px;
+
   background: #ff4d72;
 
-  font-size: 27px;
+  font-size: 25px;
 }
 
-/* =========================
-   작은 화면
-========================= */
+
+/* =================================
+   작은 아이폰
+================================= */
 
 @media (max-height: 720px) {
 
   .call-header {
-    top: 38px;
-  }
 
-  .window {
-    top: 85px;
-    height: 150px;
-  }
+    top: 30px;
 
-  .pigeon {
-    font-size: 115px;
   }
 
   .pigeon-screen {
-    height: 50%;
-  }
 
-  .my-video {
-    top: 39%;
-    height: 23%;
-  }
+    height: 34%;
 
-  .bottom-area {
-    height: 50%;
-  }
-
-  .timer {
-    font-size: 38px;
-  }
-}
-
-/* 아주 작은 아이폰 */
-@media (max-width: 380px) {
-
-  .call-header {
-    left: 20px;
-    right: 20px;
   }
 
   .pigeon {
-    font-size: 110px;
+
+    font-size: 88px;
+
+  }
+
+  .window {
+
+    top: 65px;
+
+    width: 85px;
+    height: 85px;
+
   }
 
   .my-video {
-    left: 17px;
-    right: 17px;
+
+    top: 32%;
+
+    height: 20%;
+
   }
 
-  .bottom-area {
-    padding-left: 15px;
-    padding-right: 15px;
-  }
+  .control-area {
 
-  .study-buttons {
-    gap: 6px;
-  }
+    height: 48%;
 
-  .study-buttons button {
-    font-size: 12px;
+    padding-bottom: 78px;
+
   }
 
   .timer {
-    font-size: 34px;
+
+    font-size: 32px;
+
   }
+
 }
+
+
+/* =================================
+   아주 작은 화면
+================================= */
+
+@media (max-width: 380px) {
+
+  .call-header {
+
+    left: 18px;
+    right: 18px;
+
+    font-size: 15px;
+
+  }
+
+  .pigeon {
+
+    font-size: 90px;
+
+  }
+
+  .my-video {
+
+    left: 14px;
+    right: 14px;
+
+  }
+
+  .control-area {
+
+    padding-left: 13px;
+    padding-right: 13px;
+
+  }
+
+  .study-buttons button {
+
+    font-size: 11px;
+
+  }
+
+  .timer {
+
+    font-size: 30px;
+
+  }
+
+}
+
 </style>
 </head>
+
 
 <body>
 
 <div class="app">
 
+
   <!-- =========================
-       비둘기 영상통화
+       비둘기
   ========================== -->
 
   <section class="pigeon-screen">
@@ -595,27 +758,38 @@ body {
     <div class="call-header">
 
       <div class="call-title">
+
         <span class="red-dot"></span>
-        <span>🐦 비둘기와 스터디콜</span>
+
+        <span>
+          🐦 비둘기와 스터디콜
+        </span>
+
       </div>
 
-      <span class="call-time" id="callTime">
+      <span
+        class="call-time"
+        id="callTime">
         00:00
       </span>
 
     </div>
 
+
     <div class="window"></div>
+
 
     <div class="pigeon">
       🐦
     </div>
+
 
     <div class="pigeon-status">
       🐦 비둘기 · 공부 중
     </div>
 
   </section>
+
 
 
   <!-- =========================
@@ -638,17 +812,23 @@ body {
   </div>
 
 
+
   <!-- =========================
-       공부시간 + 백색소음
+       공부 + 백색소음
   ========================== -->
 
-  <section class="bottom-area">
+  <section class="control-area">
+
+
+    <!-- 공부시간 -->
 
     <div class="study-card">
 
       <div class="study-top">
 
-        <span>⏱️ 공부시간</span>
+        <span>
+          ⏱️ 공부시간
+        </span>
 
         <span
           class="study-state"
@@ -658,11 +838,13 @@ body {
 
       </div>
 
+
       <div
         class="timer"
         id="studyTimer">
         00:00:00
       </div>
+
 
       <div class="study-buttons">
 
@@ -685,9 +867,8 @@ body {
     </div>
 
 
-    <!-- =========================
-         백색 소음
-    ========================== -->
+
+    <!-- 백색소음 -->
 
     <div class="noise-card">
 
@@ -705,9 +886,10 @@ body {
 
       </div>
 
+
       <div class="volume-row">
 
-        <span class="volume-icon">
+        <span>
           🔉
         </span>
 
@@ -716,19 +898,21 @@ body {
           id="volume"
           min="0"
           max="100"
-          value="35">
+          value="10">
 
         <span
           class="volume-number"
           id="volumeNumber">
-          35%
+          10%
         </span>
 
       </div>
 
     </div>
 
+
   </section>
+
 
 
   <!-- =========================
@@ -743,116 +927,183 @@ body {
       📷
     </button>
 
+
     <button
       class="call-button hangup"
       id="hangupButton">
       📞
     </button>
 
+
     <button
       class="call-button"
       id="noiseBottomButton">
-      🔊
+      🔇
     </button>
 
   </div>
 
+
 </div>
+
 
 
 <script>
 
-/* ==================================
-   카메라
-================================== */
 
-const camera = document.getElementById("camera");
+/* =================================
+   카메라
+================================= */
+
+const camera =
+  document.getElementById("camera");
+
 
 async function startCamera() {
 
   try {
 
     const stream =
-      await navigator.mediaDevices.getUserMedia({
-        video: true,
-        audio: false
-      });
+      await navigator.mediaDevices
+        .getUserMedia({
 
-    camera.srcObject = stream;
+          video: true,
 
-    camera.onloadedmetadata = () => {
-      camera.play();
-    };
+          audio: false
 
-  } catch (error) {
+        });
 
-    console.log("카메라 오류:", error);
+
+    camera.srcObject =
+      stream;
+
+
+    camera.onloadedmetadata =
+      () => {
+
+        camera.play();
+
+      };
+
+
+  } catch(error) {
+
+    console.log(
+      "카메라 오류:",
+      error
+    );
 
   }
 
 }
 
+
 startCamera();
 
 
-/* ==================================
+
+/* =================================
    통화 시간
-================================== */
+================================= */
 
 let callSeconds = 0;
+
 
 setInterval(() => {
 
   callSeconds++;
 
+
   const minutes =
-    Math.floor(callSeconds / 60);
+    Math.floor(
+      callSeconds / 60
+    );
+
 
   const seconds =
     callSeconds % 60;
 
-  document.getElementById("callTime").textContent =
-    String(minutes).padStart(2, "0")
-    + ":"
-    + String(seconds).padStart(2, "0");
+
+  document
+    .getElementById("callTime")
+    .textContent =
+
+      String(minutes)
+        .padStart(2, "0")
+
+      + ":"
+
+      + String(seconds)
+        .padStart(2, "0");
+
 
 }, 1000);
 
 
-/* ==================================
+
+/* =================================
    공부시간
-================================== */
+================================= */
 
 let studySeconds =
-  Number(localStorage.getItem("studySeconds") || 0);
+  Number(
+    localStorage.getItem(
+      "studySeconds"
+    ) || 0
+  );
+
 
 let studyRunning = false;
+
 let studyInterval = null;
 
+
 const timer =
-  document.getElementById("studyTimer");
+  document.getElementById(
+    "studyTimer"
+  );
+
 
 const studyState =
-  document.getElementById("studyState");
+  document.getElementById(
+    "studyState"
+  );
 
 
 function updateTimer() {
 
+
   const hours =
-    Math.floor(studySeconds / 3600);
+    Math.floor(
+      studySeconds / 3600
+    );
+
 
   const minutes =
-    Math.floor((studySeconds % 3600) / 60);
+    Math.floor(
+      (studySeconds % 3600) / 60
+    );
+
 
   const seconds =
     studySeconds % 60;
 
+
   timer.textContent =
-    String(hours).padStart(2, "0")
+
+    String(hours)
+      .padStart(2, "0")
+
     + ":"
-    + String(minutes).padStart(2, "0")
+
+    + String(minutes)
+      .padStart(2, "0")
+
     + ":"
-    + String(seconds).padStart(2, "0");
+
+    + String(seconds)
+      .padStart(2, "0");
+
 
   localStorage.setItem(
     "studySeconds",
@@ -861,111 +1112,184 @@ function updateTimer() {
 
 }
 
+
 updateTimer();
+
 
 
 /* 공부 시작 */
 
 document
   .getElementById("startBtn")
-  .addEventListener("click", () => {
+  .addEventListener(
+    "click",
+    () => {
 
-    if (studyRunning) return;
 
-    studyRunning = true;
+      if (studyRunning)
+        return;
 
-    studyState.textContent =
-      "공부 중 🔥";
 
-    studyInterval =
-      setInterval(() => {
+      studyRunning = true;
 
-        studySeconds++;
 
-        updateTimer();
+      studyState.textContent =
+        "공부 중 🔥";
 
-      }, 1000);
 
-  });
+      studyInterval =
+        setInterval(
+          () => {
+
+            studySeconds++;
+
+            updateTimer();
+
+          },
+          1000
+        );
+
+    }
+  );
+
 
 
 /* 일시정지 */
 
 document
   .getElementById("pauseBtn")
-  .addEventListener("click", () => {
+  .addEventListener(
+    "click",
+    () => {
 
-    studyRunning = false;
 
-    clearInterval(studyInterval);
+      studyRunning = false;
 
-    studyState.textContent =
-      "일시정지";
 
-  });
+      clearInterval(
+        studyInterval
+      );
+
+
+      studyState.textContent =
+        "일시정지";
+
+    }
+  );
+
 
 
 /* 초기화 */
 
 document
   .getElementById("resetBtn")
-  .addEventListener("click", () => {
-
-    studyRunning = false;
-
-    clearInterval(studyInterval);
-
-    studySeconds = 0;
-
-    updateTimer();
-
-    studyState.textContent =
-      "준비";
-
-  });
+  .addEventListener(
+    "click",
+    () => {
 
 
-/* ==================================
+      studyRunning = false;
+
+
+      clearInterval(
+        studyInterval
+      );
+
+
+      studySeconds = 0;
+
+
+      updateTimer();
+
+
+      studyState.textContent =
+        "준비";
+
+    }
+  );
+
+
+
+/* =================================
    백색 소음
-================================== */
+================================= */
 
 let audioContext = null;
+
 let noiseSource = null;
+
 let gainNode = null;
-
-const noiseButton =
-  document.getElementById("noiseBtn");
-
-const bottomNoiseButton =
-  document.getElementById("noiseBottomButton");
-
-const volumeSlider =
-  document.getElementById("volume");
-
-const volumeNumber =
-  document.getElementById("volumeNumber");
 
 let noiseOn = false;
 
 
+const noiseButton =
+  document.getElementById(
+    "noiseBtn"
+  );
+
+
+const bottomNoiseButton =
+  document.getElementById(
+    "noiseBottomButton"
+  );
+
+
+const volumeSlider =
+  document.getElementById(
+    "volume"
+  );
+
+
+const volumeNumber =
+  document.getElementById(
+    "volumeNumber"
+  );
+
+
+
 /*
-  백색 소음 생성
+  최대 실제 음량을 낮게 설정
+
+  슬라이더 100%
+  → 실제 gain 0.20
+
+  기본 10%
+  → 실제 gain 0.02
+
+  그래서 기본 소리가 훨씬 작음.
 */
+
+
+function getGain() {
+
+  return (
+    Number(
+      volumeSlider.value
+    ) / 100
+  ) * 0.20;
+
+}
+
+
+
+/* 백색소음 만들기 */
 
 function createWhiteNoise() {
 
-  audioContext =
-    new (
-      window.AudioContext ||
-      window.webkitAudioContext
-    )();
 
-  /*
-    2초짜리 백색소음 버퍼 생성
-  */
+  const AudioContext =
+    window.AudioContext ||
+    window.webkitAudioContext;
+
+
+  audioContext =
+    new AudioContext();
+
 
   const bufferSize =
     audioContext.sampleRate * 2;
+
 
   const buffer =
     audioContext.createBuffer(
@@ -974,10 +1298,16 @@ function createWhiteNoise() {
       audioContext.sampleRate
     );
 
+
   const data =
     buffer.getChannelData(0);
 
-  for (let i = 0; i < bufferSize; i++) {
+
+  for (
+    let i = 0;
+    i < bufferSize;
+    i++
+  ) {
 
     data[i] =
       Math.random() * 2 - 1;
@@ -986,43 +1316,50 @@ function createWhiteNoise() {
 
 
   noiseSource =
-    audioContext.createBufferSource();
+    audioContext
+      .createBufferSource();
 
-  noiseSource.buffer = buffer;
 
-  noiseSource.loop = true;
+  noiseSource.buffer =
+    buffer;
+
+
+  noiseSource.loop =
+    true;
 
 
   gainNode =
     audioContext.createGain();
 
+
   /*
-    처음 음량 35%
+    처음에는 아주 작게
   */
 
   gainNode.gain.value =
-    Number(volumeSlider.value) / 100;
+    getGain();
 
 
-  noiseSource.connect(gainNode);
+  noiseSource.connect(
+    gainNode
+  );
+
 
   gainNode.connect(
     audioContext.destination
   );
+
 
   noiseSource.start();
 
 }
 
 
-/* 백색소음 켜기 */
+
+/* 백색소음 ON */
 
 async function turnNoiseOn() {
 
-  /*
-    아이폰에서는 사용자 터치 후
-    AudioContext를 실행해야 함
-  */
 
   if (!audioContext) {
 
@@ -1030,20 +1367,40 @@ async function turnNoiseOn() {
 
   }
 
+
+  /*
+    아이폰에서
+    사용자 터치 후 재생
+  */
+
   if (
-    audioContext.state === "suspended"
+    audioContext.state ===
+    "suspended"
   ) {
 
     await audioContext.resume();
 
   }
 
+
   noiseOn = true;
+
+
+  gainNode.gain.setTargetAtTime(
+    getGain(),
+    audioContext.currentTime,
+    0.03
+  );
+
 
   noiseButton.textContent =
     "🔊 ON";
 
-  noiseButton.classList.add("on");
+
+  noiseButton.classList.add(
+    "on"
+  );
+
 
   bottomNoiseButton.textContent =
     "🔊";
@@ -1051,22 +1408,37 @@ async function turnNoiseOn() {
 }
 
 
-/* 백색소음 끄기 */
+
+/* 백색소음 OFF */
 
 function turnNoiseOff() {
 
+
   noiseOn = false;
 
-  if (gainNode) {
 
-    gainNode.gain.value = 0;
+  if (
+    gainNode &&
+    audioContext
+  ) {
+
+    gainNode.gain.setTargetAtTime(
+      0,
+      audioContext.currentTime,
+      0.03
+    );
 
   }
+
 
   noiseButton.textContent =
     "🔇 OFF";
 
-  noiseButton.classList.remove("on");
+
+  noiseButton.classList.remove(
+    "on"
+  );
+
 
   bottomNoiseButton.textContent =
     "🔇";
@@ -1074,7 +1446,8 @@ function turnNoiseOff() {
 }
 
 
-/* 메인 백색소음 버튼 */
+
+/* 위쪽 버튼 */
 
 noiseButton.addEventListener(
   "click",
@@ -1094,7 +1467,8 @@ noiseButton.addEventListener(
 );
 
 
-/* 하단 백색소음 버튼 */
+
+/* 아래쪽 버튼 */
 
 bottomNoiseButton.addEventListener(
   "click",
@@ -1114,28 +1488,42 @@ bottomNoiseButton.addEventListener(
 );
 
 
-/* ==================================
+
+/* =================================
    음량 조절
-================================== */
+================================= */
 
 volumeSlider.addEventListener(
   "input",
   () => {
 
-    const volume =
-      Number(volumeSlider.value);
+
+    const value =
+      Number(
+        volumeSlider.value
+      );
+
 
     volumeNumber.textContent =
-      volume + "%";
+      value + "%";
 
-    if (gainNode) {
 
-      /*
-        음량을 부드럽게 변경
-      */
+    if (
+      gainNode &&
+      audioContext
+    ) {
 
-      gainNode.gain.value =
-        volume / 100;
+      const newGain =
+        noiseOn
+          ? getGain()
+          : 0;
+
+
+      gainNode.gain.setTargetAtTime(
+        newGain,
+        audioContext.currentTime,
+        0.03
+      );
 
     }
 
@@ -1143,80 +1531,109 @@ volumeSlider.addEventListener(
 );
 
 
-/* ==================================
-   카메라 버튼
-================================== */
+
+/* =================================
+   카메라 ON/OFF
+================================= */
 
 document
   .getElementById("cameraButton")
-  .addEventListener("click", () => {
+  .addEventListener(
+    "click",
+    () => {
 
-    if (!camera.srcObject) {
 
-      startCamera();
+      if (!camera.srcObject) {
 
-      return;
+        startCamera();
+
+        return;
+
+      }
+
+
+      const tracks =
+        camera.srcObject
+          .getVideoTracks();
+
+
+      tracks.forEach(
+        track => {
+
+          track.enabled =
+            !track.enabled;
+
+        }
+      );
+
+
+      const enabled =
+        tracks[0]?.enabled;
+
+
+      document
+        .getElementById(
+          "cameraButton"
+        )
+        .textContent =
+          enabled
+            ? "📷"
+            : "🚫";
 
     }
-
-    const tracks =
-      camera.srcObject.getVideoTracks();
-
-    tracks.forEach(track => {
-
-      track.enabled =
-        !track.enabled;
-
-    });
-
-    const enabled =
-      tracks[0]?.enabled;
-
-    document.getElementById(
-      "cameraButton"
-    ).textContent =
-      enabled ? "📷" : "🚫";
-
-  });
+  );
 
 
-/* ==================================
-   통화 종료 버튼
-================================== */
+
+/* =================================
+   통화 종료
+================================= */
 
 document
-  .getElementById("hangupButton")
-  .addEventListener("click", () => {
+  .getElementById(
+    "hangupButton"
+  )
+  .addEventListener(
+    "click",
+    () => {
 
-    /*
-      카메라 정지
-    */
 
-    if (camera.srcObject) {
+      if (camera.srcObject) {
 
-      camera.srcObject
-        .getTracks()
-        .forEach(track => {
-          track.stop();
-        });
+        camera.srcObject
+          .getTracks()
+          .forEach(
+            track =>
+              track.stop()
+          );
 
-      camera.srcObject = null;
+        camera.srcObject =
+          null;
+
+      }
+
+
+      studyRunning =
+        false;
+
+
+      clearInterval(
+        studyInterval
+      );
+
+
+      studyState.textContent =
+        "통화 종료";
+
+
+      if (noiseOn) {
+
+        turnNoiseOff();
+
+      }
 
     }
-
-
-    /*
-      공부시간 정지
-    */
-
-    studyRunning = false;
-
-    clearInterval(studyInterval);
-
-    studyState.textContent =
-      "통화 종료";
-
-  });
+  );
 
 </script>
 
