@@ -49,7 +49,7 @@
       font-size: 24px;
       font-weight: bold;
 
-      z-index: 10;
+      z-index: 100;
     }
 
 
@@ -66,7 +66,7 @@
       color: #777;
       font-size: 14px;
 
-      z-index: 10;
+      z-index: 100;
     }
 
 
@@ -77,15 +77,15 @@
     .floor {
       position: absolute;
 
-      bottom: 0;
       left: 0;
+      bottom: 0;
 
       width: 100%;
       height: 120px;
 
       background: #d9d5cc;
 
-      z-index: 1;
+      z-index: 2;
     }
 
 
@@ -96,16 +96,18 @@
     .pigeon {
       position: absolute;
 
-      bottom: 95px;
       left: -100px;
+      bottom: 92px;
 
       font-size: 65px;
+
+      z-index: 50;
+
+      pointer-events: none;
 
       animation:
         walk 12s linear infinite,
         head 1.5s ease-in-out infinite;
-
-      z-index: 3;
     }
 
 
@@ -165,8 +167,8 @@
     .pigeon-name {
       position: absolute;
 
-      bottom: 175px;
-      left: 30px;
+      left: -100px;
+      bottom: 170px;
 
       background: white;
 
@@ -179,10 +181,11 @@
       box-shadow:
         0 4px 12px rgba(0, 0, 0, 0.1);
 
-      animation:
-        nameMove 12s linear infinite;
+      z-index: 51;
 
-      z-index: 4;
+      pointer-events: none;
+
+      animation: nameMove 12s linear infinite;
     }
 
 
@@ -239,7 +242,7 @@
       box-shadow:
         0 8px 30px rgba(0, 0, 0, 0.2);
 
-      z-index: 5;
+      z-index: 20;
     }
 
 
@@ -278,7 +281,7 @@
       box-shadow:
         0 5px 15px rgba(0, 0, 0, 0.12);
 
-      z-index: 10;
+      z-index: 100;
     }
 
 
@@ -312,37 +315,42 @@
       }
 
 
-      /* 바닥을 조금 낮게 */
+      /* 휴대폰 바닥 */
 
       .floor {
         height: 90px;
+
+        z-index: 2;
       }
 
 
-      /* 비둘기 */
+      /* 휴대폰 비둘기 */
 
       .pigeon {
-        bottom: 65px;
+        bottom: 82px;
 
-        font-size: 50px;
+        font-size: 52px;
+
+        z-index: 50;
       }
 
 
       /* 비둘기 이름 */
 
       .pigeon-name {
-        bottom: 125px;
-        left: -100px;
-
-        padding: 6px 10px;
+        bottom: 145px;
 
         font-size: 12px;
 
+        padding: 6px 10px;
+
         border-radius: 10px;
+
+        z-index: 51;
       }
 
 
-      /* 카메라 */
+      /* 휴대폰 카메라 */
 
       .camera-box {
         left: 16px;
@@ -359,12 +367,11 @@
 
         border-radius: 18px;
 
-        box-shadow:
-          0 8px 25px rgba(0, 0, 0, 0.18);
+        z-index: 20;
       }
 
 
-      /* 버튼 */
+      /* 카메라 버튼 */
 
       .camera-button {
         left: 50%;
@@ -381,6 +388,8 @@
         font-size: 13px;
 
         white-space: nowrap;
+
+        z-index: 100;
       }
 
     }
@@ -424,14 +433,25 @@
 
 
       .pigeon {
-        font-size: 45px;
+        bottom: 78px;
+
+        font-size: 47px;
+
+        z-index: 50;
+      }
+
+
+      .pigeon-name {
+        bottom: 135px;
+
+        font-size: 11px;
       }
 
     }
 
 
     /* =========================
-       📱 가로모드
+       📱 휴대폰 가로모드
     ========================= */
 
     @media (max-width: 900px) and (orientation: landscape) {
@@ -462,9 +482,16 @@
 
 
       .pigeon {
-        bottom: 45px;
+        bottom: 55px;
 
-        font-size: 42px;
+        font-size: 45px;
+
+        z-index: 50;
+      }
+
+
+      .pigeon-name {
+        bottom: 105px;
       }
 
 
@@ -476,6 +503,8 @@
         bottom: 15px;
 
         border-radius: 15px;
+
+        z-index: 20;
       }
 
 
@@ -502,7 +531,6 @@
 
   <div class="room">
 
-
     <!-- 제목 -->
 
     <div class="title">
@@ -523,6 +551,8 @@
       🐦
     </div>
 
+
+    <!-- 비둘기 이름 -->
 
     <div class="pigeon-name">
       🐦 비둘기
@@ -557,7 +587,6 @@
 
     </button>
 
-
   </div>
 
 
@@ -581,7 +610,9 @@
       async () => {
 
 
-        /* 카메라 끄기 */
+        /* =====================
+           카메라 끄기
+        ===================== */
 
         if (stream) {
 
@@ -603,7 +634,9 @@
         }
 
 
-        /* 카메라 켜기 */
+        /* =====================
+           카메라 켜기
+        ===================== */
 
         try {
 
@@ -640,16 +673,15 @@
 
                 await video.play();
 
-
                 status.textContent =
                   "🐦 도하 + 비둘기 스터디 시작!";
-
 
                 button.textContent =
                   "⏹ 카메라 끄기";
 
+              }
 
-              } catch (error) {
+              catch (error) {
 
                 console.error(
                   "영상 재생 오류:",
@@ -663,14 +695,14 @@
 
             };
 
+        }
 
-        } catch (error) {
+        catch (error) {
 
           console.error(
             "카메라 오류:",
             error
           );
-
 
           status.textContent =
             "카메라를 사용할 수 없어요: "
