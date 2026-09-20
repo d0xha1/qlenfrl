@@ -1,1245 +1,1224 @@
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
-  <meta charset="UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>🐦 비둘기와 스터디콜</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #17181c;
+  font-family: -apple-system, BlinkMacSystemFont,
+               "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+}
+
+body {
+  color: white;
+}
+
+/* 전체 화면 */
+.app {
+  width: 100%;
+  height: 100dvh;
+  max-width: 480px;
+  margin: 0 auto;
+  background: #1b1c20;
+  position: relative;
+  overflow: hidden;
+}
+
+/* =========================
+   비둘기 영상통화 화면
+========================= */
+
+.pigeon-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 52%;
+  min-height: 390px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #edf2f8 0%,
+      #dbe5ed 55%,
+      #c7d2dc 100%
+    );
+
+  overflow: hidden;
+}
+
+/* 위쪽 정보 */
+.call-header {
+  position: absolute;
+  top: 58px;
+  left: 28px;
+  right: 28px;
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-  >
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-  <title>도하의 스터디콜 🐦</title>
+  z-index: 20;
 
+  font-size: 18px;
+  font-weight: 700;
+}
 
-  <style>
+.call-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
 
-    * {
-      box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
-    }
+.red-dot {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #ff4d72;
+  display: inline-block;
+}
 
+.call-time {
+  font-size: 15px;
+  font-weight: 500;
+  opacity: .8;
+}
 
-    html,
-    body {
+/* 창문 */
+.window {
+  position: absolute;
 
-      margin: 0;
+  right: 58px;
+  top: 112px;
 
-      width: 100%;
-      height: 100%;
+  width: 115px;
+  height: 190px;
 
-      overflow: hidden;
+  border-radius: 18px;
 
-      background: #111;
+  background: #a9cee1;
 
-      font-family:
-        Arial,
-        "Noto Sans KR",
-        sans-serif;
+  overflow: hidden;
 
-    }
+  opacity: .8;
+}
 
+.window::before {
+  content: "";
 
-    body {
+  position: absolute;
 
-      display: flex;
+  left: 50%;
+  top: 0;
 
-      justify-content: center;
+  width: 6px;
+  height: 100%;
 
-    }
+  transform: translateX(-50%);
 
+  background: rgba(255,255,255,.7);
+}
 
-    /* =================================
-       전체 휴대폰 화면
-    ================================= */
+.window::after {
+  content: "";
 
-    .phone {
+  position: absolute;
 
-      position: relative;
+  left: 0;
+  top: 50%;
 
-      width: 100%;
-      max-width: 480px;
+  width: 100%;
+  height: 6px;
 
-      height: 100dvh;
+  transform: translateY(-50%);
 
-      background: #202124;
+  background: rgba(255,255,255,.7);
+}
 
-      overflow: hidden;
+/* 비둘기 */
+.pigeon {
+  position: absolute;
 
-    }
+  left: 50%;
+  top: 51%;
 
+  transform: translate(-50%, -50%);
 
-    /* =================================
-       상단
-    ================================= */
+  font-size: 145px;
 
-    .top-bar {
+  filter:
+    drop-shadow(0 18px 15px rgba(0,0,0,.15));
 
-      position: absolute;
+  z-index: 10;
 
-      top: 0;
-      left: 0;
+  animation: pigeonFloat 3s ease-in-out infinite;
+}
 
-      width: 100%;
+@keyframes pigeonFloat {
 
-      height: 70px;
+  0%, 100% {
+    transform: translate(-50%, -50%) translateY(0);
+  }
 
-      padding:
-        18px
-        18px
-        10px;
+  50% {
+    transform: translate(-50%, -50%) translateY(-7px);
+  }
+}
 
-      display: flex;
+/* 비둘기 상태 */
+.pigeon-status {
+  position: absolute;
 
-      align-items: center;
+  left: 32px;
+  bottom: 20px;
 
-      justify-content: space-between;
+  padding: 13px 20px;
 
-      color: white;
+  border-radius: 15px;
 
-      z-index: 20;
+  background: rgba(70,70,70,.65);
 
-      background:
-        linear-gradient(
-          to bottom,
-          rgba(0,0,0,.55),
-          transparent
-        );
+  backdrop-filter: blur(10px);
 
-    }
+  font-size: 15px;
+  font-weight: 600;
 
+  z-index: 20;
+}
 
-    .call-title {
+/* =========================
+   내 카메라
+========================= */
 
-      display: flex;
+.my-video {
+  position: absolute;
 
-      align-items: center;
+  left: 22px;
+  right: 22px;
 
-      gap: 8px;
+  top: 43%;
 
-      font-size: 14px;
+  height: 24%;
 
-      font-weight: bold;
+  border-radius: 25px;
 
-    }
+  overflow: hidden;
 
+  background: #111;
 
-    .live-dot {
+  border: 2px solid rgba(255,255,255,.18);
 
-      width: 8px;
-      height: 8px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.35);
 
-      background: #ff5c7a;
+  z-index: 30;
+}
 
-      border-radius: 50%;
+#camera {
+  width: 100%;
+  height: 100%;
 
-      animation: blink 1.4s infinite;
+  object-fit: cover;
 
-    }
+  transform: scaleX(-1);
 
+  display: block;
 
-    @keyframes blink {
+  background: #111;
+}
 
-      0%,
-      100% {
-        opacity: 1;
-      }
+.camera-label {
+  position: absolute;
 
-      50% {
-        opacity: .35;
-      }
+  left: 22px;
+  bottom: 18px;
 
-    }
+  padding: 10px 15px;
 
+  border-radius: 13px;
 
-    .call-time {
+  background: rgba(40,40,40,.7);
 
-      font-size: 12px;
+  backdrop-filter: blur(8px);
 
-      opacity: .8;
+  font-size: 14px;
 
-    }
+  z-index: 5;
+}
 
+/* =========================
+   아래쪽 영역
+========================= */
 
-    /* =================================
-       🐦 비둘기 영상
-    ================================= */
+.bottom-area {
+  position: absolute;
 
-    .pigeon-video {
+  left: 0;
+  right: 0;
+  bottom: 0;
 
-      position: absolute;
+  height: 48%;
 
-      top: 0;
-      left: 0;
+  background: #1b1c20;
 
-      width: 100%;
+  padding: 16px 22px 100px;
 
-      height: 56%;
+  z-index: 40;
+}
 
-      overflow: hidden;
+/* 공부시간 */
+.study-card {
+  width: 100%;
 
-      background:
-        linear-gradient(
-          135deg,
-          #dfe7ee,
-          #c9d2dc
-        );
+  padding: 20px 18px 18px;
 
-    }
+  border-radius: 24px;
 
+  background: #1d1e22;
 
-    /* 가짜 영상 배경 */
+  border: 1px solid rgba(255,255,255,.1);
 
-    .pigeon-room {
+  box-shadow:
+    0 10px 30px rgba(0,0,0,.25);
 
-      position: absolute;
+  text-align: center;
+}
 
-      inset: 0;
+.study-top {
+  display: flex;
 
-      background:
+  justify-content: space-between;
+  align-items: center;
 
-        radial-gradient(
-          circle at 75% 25%,
-          rgba(255,255,255,.9),
-          transparent 30%
-        ),
+  margin-bottom: 5px;
 
-        linear-gradient(
-          135deg,
-          #e8edf1,
-          #bfc9d2
-        );
+  color: #aeb0b7;
 
-    }
+  font-size: 15px;
+}
 
+.study-state {
+  color: #83c9ff;
+}
 
-    /* 창문 */
+.timer {
+  margin: 7px 0 14px;
 
-    .window {
+  font-size: 46px;
 
-      position: absolute;
+  font-weight: 800;
 
-      top: 16%;
+  letter-spacing: 1px;
 
-      right: 8%;
+  color: white;
+}
 
-      width: 30%;
+/* 공부 버튼 */
+.study-buttons {
+  display: grid;
 
-      height: 27%;
+  grid-template-columns: 1.2fr 1fr 1fr;
 
-      border-radius: 12px;
+  gap: 10px;
+}
 
-      background:
-        linear-gradient(
-          90deg,
-          transparent 48%,
-          rgba(255,255,255,.7) 49%,
-          rgba(255,255,255,.7) 51%,
-          transparent 52%
-        ),
-        linear-gradient(
-          0deg,
-          transparent 48%,
-          rgba(255,255,255,.7) 49%,
-          rgba(255,255,255,.7) 51%,
-          transparent 52%
-        ),
-        #b8d4e4;
+.study-buttons button {
+  border: none;
 
-      box-shadow:
-        0 8px 25px rgba(0,0,0,.1);
+  border-radius: 16px;
 
-    }
+  padding: 14px 7px;
 
+  font-size: 14px;
 
-    /* 책상 */
+  font-weight: 700;
 
-    .pigeon-desk {
+  background: #303136;
 
-      position: absolute;
+  color: white;
 
-      bottom: 0;
-      left: 0;
+  cursor: pointer;
+}
 
-      width: 100%;
+.study-buttons button:active {
+  transform: scale(.96);
+}
 
-      height: 20%;
+.start-btn {
+  background: white !important;
+  color: #151515 !important;
+}
 
-      background: #c8b39a;
+/* =========================
+   백색 소음
+========================= */
 
-    }
+.noise-card {
+  margin-top: 13px;
 
+  width: 100%;
 
-    /* 🐦 */
+  padding: 14px 17px;
 
-    .pigeon-character {
+  border-radius: 20px;
 
-      position: absolute;
+  background: #24252a;
 
-      left: 50%;
+  border: 1px solid rgba(255,255,255,.08);
+}
 
-      top: 52%;
+.noise-row {
+  display: flex;
 
-      transform:
-        translate(-50%, -50%);
+  align-items: center;
 
-      font-size: 125px;
+  justify-content: space-between;
+}
 
-      filter:
-        drop-shadow(
-          0 12px 8px rgba(0,0,0,.18)
-        );
+.noise-name {
+  font-size: 15px;
 
-      animation:
-        pigeonMove 3s ease-in-out infinite;
+  font-weight: 700;
+}
 
-      z-index: 5;
+.noise-toggle {
+  border: none;
 
-    }
+  padding: 9px 15px;
 
+  border-radius: 13px;
 
-    @keyframes pigeonMove {
+  background: #33343a;
 
-      0% {
+  color: white;
 
-        transform:
-          translate(-50%, -50%)
-          rotate(-2deg);
+  font-weight: 700;
 
-      }
+  font-size: 13px;
+}
 
-      50% {
+.noise-toggle.on {
+  background: #ffffff;
+  color: #222;
+}
 
-        transform:
-          translate(-50%, -53%)
-          rotate(2deg);
+/* 음량 */
+.volume-row {
+  display: flex;
 
-      }
+  align-items: center;
 
-      100% {
+  gap: 10px;
 
-        transform:
-          translate(-50%, -50%)
-          rotate(-2deg);
+  margin-top: 11px;
 
-      }
+  color: #aaa;
 
-    }
+  font-size: 13px;
+}
 
+.volume-icon {
+  font-size: 16px;
+}
 
-    /* 비둘기 이름 */
+#volume {
+  flex: 1;
 
-    .pigeon-label {
+  height: 4px;
 
-      position: absolute;
+  accent-color: white;
+}
 
-      left: 18px;
+.volume-number {
+  width: 35px;
 
-      bottom: 22%;
+  text-align: right;
 
-      padding:
-        7px
-        11px;
+  color: #ddd;
+}
 
-      border-radius: 10px;
+/* =========================
+   하단 통화 버튼
+========================= */
 
-      background:
-        rgba(0,0,0,.45);
+.bottom-buttons {
+  position: absolute;
 
-      color: white;
+  left: 0;
+  right: 0;
+  bottom: 0;
 
-      font-size: 12px;
+  height: 82px;
 
-      z-index: 10;
+  background: #0e0f11;
 
-      backdrop-filter: blur(5px);
+  display: flex;
 
-    }
+  justify-content: center;
 
+  align-items: center;
 
-    /* =================================
-       도하 카메라
-    ================================= */
+  gap: 38px;
 
-    .my-video {
-      position: absolute;
+  z-index: 100;
+}
 
-      left: 12px;
-      right: 12px;
+.call-button {
+  width: 62px;
+  height: 62px;
 
-      /* 공부시간 카드 위에 딱 맞게 */
-      bottom: 255px;
+  border-radius: 50%;
 
-      height: 24%;
+  border: none;
 
-      border-radius: 22px;
-      overflow: hidden;
+  display: flex;
 
-      background: #111;
+  align-items: center;
+  justify-content: center;
 
-      border: 2px solid rgba(255,255,255,.15);
+  font-size: 25px;
 
-      box-shadow: 0 12px 35px rgba(0,0,0,.4);
+  background: #303136;
 
-      z-index: 10;
-    }
+  color: white;
+}
 
+.call-button:active {
+  transform: scale(.92);
+}
 
-    video {
+.hangup {
+  background: #ff4d72;
 
-      width: 100%;
-      height: 100%;
+  font-size: 27px;
+}
 
-      object-fit: cover;
+/* =========================
+   작은 화면
+========================= */
 
-      transform:
-        scaleX(-1);
+@media (max-height: 720px) {
 
-    }
+  .call-header {
+    top: 38px;
+  }
 
+  .window {
+    top: 85px;
+    height: 150px;
+  }
 
-    /* 카메라 꺼졌을 때 */
+  .pigeon {
+    font-size: 115px;
+  }
 
-    .camera-placeholder {
+  .pigeon-screen {
+    height: 50%;
+  }
 
-      position: absolute;
+  .my-video {
+    top: 39%;
+    height: 23%;
+  }
 
-      inset: 0;
+  .bottom-area {
+    height: 50%;
+  }
 
-      display: flex;
+  .timer {
+    font-size: 38px;
+  }
+}
 
-      align-items: center;
+/* 아주 작은 아이폰 */
+@media (max-width: 380px) {
 
-      justify-content: center;
+  .call-header {
+    left: 20px;
+    right: 20px;
+  }
 
-      flex-direction: column;
+  .pigeon {
+    font-size: 110px;
+  }
 
-      gap: 8px;
+  .my-video {
+    left: 17px;
+    right: 17px;
+  }
 
-      color: #aaa;
+  .bottom-area {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
 
-      font-size: 13px;
+  .study-buttons {
+    gap: 6px;
+  }
 
-      background: #171717;
+  .study-buttons button {
+    font-size: 12px;
+  }
 
-    }
-
-
-    .camera-icon {
-
-      font-size: 35px;
-
-    }
-
-
-    .me-label {
-
-      position: absolute;
-
-      left: 12px;
-      bottom: 12px;
-
-      padding:
-        6px
-        10px;
-
-      border-radius: 9px;
-
-      background:
-        rgba(0,0,0,.5);
-
-      color: white;
-
-      font-size: 11px;
-
-      z-index: 5;
-
-    }
-
-
-    /* =================================
-       공부시간
-    ================================= */
-
-    .timer-card {
-
-      position: absolute;
-
-      left: 50%;
-
-      bottom: 72px;
-
-      transform:
-        translateX(-50%);
-
-      width: calc(100% - 36px);
-
-      padding:
-        12px
-        15px;
-
-      border-radius: 18px;
-
-      background:
-        rgba(30,30,32,.92);
-
-      border:
-        1px solid
-        rgba(255,255,255,.08);
-
-      color: white;
-
-      z-index: 30;
-
-      backdrop-filter: blur(15px);
-
-    }
-
-
-    .timer-title {
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: space-between;
-
-      font-size: 11px;
-
-      color: #aaa;
-
-      margin-bottom: 3px;
-
-    }
-
-
-    .study-state {
-
-      color: #8fd3ff;
-
-    }
-
-
-    .timer {
-
-      text-align: center;
-
-      font-size: 34px;
-
-      font-weight: 700;
-
-      letter-spacing: 2px;
-
-      margin:
-        2px
-        0
-        8px;
-
-    }
-
-
-    .timer-buttons {
-
-      display: flex;
-
-      gap: 7px;
-
-    }
-
-
-    .timer-buttons button {
-
-      flex: 1;
-
-      border: none;
-
-      border-radius: 11px;
-
-      padding:
-        8px
-        5px;
-
-      background: #333;
-
-      color: white;
-
-      font-size: 12px;
-
-      font-weight: bold;
-
-      cursor: pointer;
-
-    }
-
-
-    .timer-buttons button:active {
-
-      transform: scale(.96);
-
-    }
-
-
-    .start-btn {
-
-      background:
-        #ffffff !important;
-
-      color:
-        #222 !important;
-
-    }
-
-
-    /* =================================
-       하단 통화바
-    ================================= */
-
-    .bottom-bar {
-
-      position: absolute;
-
-      bottom: 0;
-      left: 0;
-
-      width: 100%;
-
-      height: 58px;
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: center;
-
-      gap: 28px;
-
-      background:
-        rgba(10,10,10,.92);
-
-      z-index: 40;
-
-    }
-
-
-    .call-button {
-
-      width: 40px;
-      height: 40px;
-
-      border: none;
-
-      border-radius: 50%;
-
-      background: #333;
-
-      color: white;
-
-      font-size: 17px;
-
-    }
-
-
-    .hangup {
-
-      background: #ff526b;
-
-    }
-
-
-    /* =================================
-       작은 화면
-    ================================= */
-
-    @media (max-width: 380px) {
-
-      .pigeon-character {
-
-        font-size: 105px;
-
-      }
-
-
-      .timer {
-
-        font-size: 29px;
-
-      }
-
-
-      .my-video {
-        bottom: 255px;
-        height: 24%;
-      }
-
-    }
-
-  </style>
-
+  .timer {
+    font-size: 34px;
+  }
+}
+</style>
 </head>
-
 
 <body>
 
+<div class="app">
 
-  <main class="phone">
+  <!-- =========================
+       비둘기 영상통화
+  ========================== -->
 
+  <section class="pigeon-screen">
 
-    <!-- =============================
-         상단
-    ============================== -->
-
-    <div class="top-bar">
+    <div class="call-header">
 
       <div class="call-title">
-
-        <span class="live-dot"></span>
-
-        🐦 비둘기와 스터디콜
-
+        <span class="red-dot"></span>
+        <span>🐦 비둘기와 스터디콜</span>
       </div>
 
-
-      <div
-        class="call-time"
-        id="callTime">
-
+      <span class="call-time" id="callTime">
         00:00
-
-      </div>
+      </span>
 
     </div>
 
+    <div class="window"></div>
+
+    <div class="pigeon">
+      🐦
+    </div>
+
+    <div class="pigeon-status">
+      🐦 비둘기 · 공부 중
+    </div>
+
+  </section>
 
 
-    <!-- =============================
-         비둘기 영상
-    ============================== -->
+  <!-- =========================
+       내 카메라
+  ========================== -->
 
-    <section class="pigeon-video">
+  <div class="my-video">
 
+    <video
+      id="camera"
+      autoplay
+      playsinline
+      muted>
+    </video>
 
-      <div class="pigeon-room">
+    <div class="camera-label">
+      도하 · 공부 중
+    </div>
 
-        <div class="window"></div>
-
-        <div class="pigeon-desk"></div>
-
-      </div>
-
-
-      <div class="pigeon-character">
-
-        🐦
-
-      </div>
+  </div>
 
 
-      <div class="pigeon-label">
+  <!-- =========================
+       공부시간 + 백색소음
+  ========================== -->
 
-        🐦 비둘기 · 공부 중
+  <section class="bottom-area">
 
-      </div>
+    <div class="study-card">
 
+      <div class="study-top">
 
-    </section>
-
-
-
-    <!-- =============================
-         내 카메라
-    ============================== -->
-
-    <section class="my-video">
-
-
-      <div
-        class="camera-placeholder"
-        id="cameraPlaceholder">
-
-        <div class="camera-icon">
-          📷
-        </div>
-
-        카메라를 켜면
-        여기에 도하가 보여요
-
-      </div>
-
-
-      <video
-        id="camera"
-        autoplay
-        playsinline>
-      </video>
-
-
-      <div class="me-label">
-
-        도하 · 공부 중
-
-      </div>
-
-
-    </section>
-
-
-
-    <!-- =============================
-         공부시간
-    ============================== -->
-
-    <section class="timer-card">
-
-
-      <div class="timer-title">
-
-        <span>
-          ⏱ 공부시간
-        </span>
-
+        <span>⏱️ 공부시간</span>
 
         <span
           class="study-state"
           id="studyState">
-
           준비
-
         </span>
 
       </div>
 
-
       <div
         class="timer"
-        id="timer">
-
+        id="studyTimer">
         00:00:00
-
       </div>
 
-
-      <div class="timer-buttons">
-
+      <div class="study-buttons">
 
         <button
           class="start-btn"
           id="startBtn">
-
           ▶ 공부 시작
-
         </button>
 
-
-        <button
-          id="pauseBtn">
-
+        <button id="pauseBtn">
           ⏸ 일시정지
-
         </button>
 
-
-        <button
-          id="resetBtn">
-
+        <button id="resetBtn">
           🔄 초기화
-
         </button>
-
 
       </div>
-
-
-    </section>
-
-
-
-    <!-- =============================
-         하단 통화 버튼
-    ============================== -->
-
-    <div class="bottom-bar">
-
-
-      <button
-        class="call-button"
-        id="cameraButton">
-
-        📷
-
-      </button>
-
-
-      <button
-        class="call-button hangup"
-        id="callButton">
-
-        📞
-
-      </button>
-
-
-      <button
-        class="call-button">
-
-        🔊
-
-      </button>
-
 
     </div>
 
 
-  </main>
+    <!-- =========================
+         백색 소음
+    ========================== -->
 
+    <div class="noise-card">
 
+      <div class="noise-row">
 
-  <script>
+        <span class="noise-name">
+          🎧 백색 소음
+        </span>
 
+        <button
+          class="noise-toggle"
+          id="noiseBtn">
+          🔇 OFF
+        </button>
 
-    /* =================================
-       카메라
-    ================================= */
+      </div>
 
-    const video =
-      document.getElementById("camera");
+      <div class="volume-row">
 
-    const cameraButton =
-      document.getElementById("cameraButton");
+        <span class="volume-icon">
+          🔉
+        </span>
 
-    const placeholder =
-      document.getElementById(
-        "cameraPlaceholder"
-      );
+        <input
+          type="range"
+          id="volume"
+          min="0"
+          max="100"
+          value="35">
 
+        <span
+          class="volume-number"
+          id="volumeNumber">
+          35%
+        </span>
 
-    let stream = null;
+      </div>
 
+    </div>
 
-    cameraButton.addEventListener(
-      "click",
-      async () => {
+  </section>
 
 
-        if (stream) {
+  <!-- =========================
+       하단 버튼
+  ========================== -->
 
-          stream
-            .getTracks()
-            .forEach(
-              track => track.stop()
-            );
+  <div class="bottom-buttons">
 
-          video.srcObject = null;
+    <button
+      class="call-button"
+      id="cameraButton">
+      📷
+    </button>
 
-          stream = null;
+    <button
+      class="call-button hangup"
+      id="hangupButton">
+      📞
+    </button>
 
-          placeholder.style.display =
-            "flex";
+    <button
+      class="call-button"
+      id="noiseBottomButton">
+      🔊
+    </button>
 
-          cameraButton.textContent =
-            "📷";
+  </div>
 
-          return;
+</div>
 
-        }
 
+<script>
 
-        try {
+/* ==================================
+   카메라
+================================== */
 
-          stream =
-            await navigator.mediaDevices
-              .getUserMedia({
+const camera = document.getElementById("camera");
 
-                video: {
+async function startCamera() {
 
-                  facingMode: "user",
+  try {
 
-                  width: {
-                    ideal: 720
-                  },
+    const stream =
+      await navigator.mediaDevices.getUserMedia({
+        video: true,
+        audio: false
+      });
 
-                  height: {
-                    ideal: 1280
-                  }
+    camera.srcObject = stream;
 
-                },
+    camera.onloadedmetadata = () => {
+      camera.play();
+    };
 
-                audio: false
+  } catch (error) {
 
-              });
+    console.log("카메라 오류:", error);
 
+  }
 
-          video.srcObject = stream;
+}
 
-          placeholder.style.display =
-            "none";
+startCamera();
 
 
-          cameraButton.textContent =
-            "⏹";
+/* ==================================
+   통화 시간
+================================== */
 
+let callSeconds = 0;
 
-        }
+setInterval(() => {
 
-        catch (error) {
+  callSeconds++;
 
-          console.error(error);
+  const minutes =
+    Math.floor(callSeconds / 60);
 
-          alert(
-            "카메라를 사용할 수 없어요.\n" +
-            "브라우저에서 카메라 권한을 허용해주세요."
-          );
+  const seconds =
+    callSeconds % 60;
 
-        }
+  document.getElementById("callTime").textContent =
+    String(minutes).padStart(2, "0")
+    + ":"
+    + String(seconds).padStart(2, "0");
 
-      }
-    );
+}, 1000);
 
 
+/* ==================================
+   공부시간
+================================== */
 
-    /* =================================
-       공부시간 타이머
-    ================================= */
+let studySeconds =
+  Number(localStorage.getItem("studySeconds") || 0);
 
-    const timerElement =
-      document.getElementById("timer");
+let studyRunning = false;
+let studyInterval = null;
 
-    const stateElement =
-      document.getElementById("studyState");
+const timer =
+  document.getElementById("studyTimer");
 
-    const startButton =
-      document.getElementById("startBtn");
+const studyState =
+  document.getElementById("studyState");
 
-    const pauseButton =
-      document.getElementById("pauseBtn");
 
-    const resetButton =
-      document.getElementById("resetBtn");
+function updateTimer() {
 
+  const hours =
+    Math.floor(studySeconds / 3600);
 
-    let seconds =
-      Number(
-        localStorage.getItem(
-          "dohaStudySeconds"
-        )
-      ) || 0;
+  const minutes =
+    Math.floor((studySeconds % 3600) / 60);
 
+  const seconds =
+    studySeconds % 60;
 
-    let timerRunning = false;
+  timer.textContent =
+    String(hours).padStart(2, "0")
+    + ":"
+    + String(minutes).padStart(2, "0")
+    + ":"
+    + String(seconds).padStart(2, "0");
 
-    let timerInterval = null;
+  localStorage.setItem(
+    "studySeconds",
+    studySeconds
+  );
 
+}
 
-    function updateTimer() {
+updateTimer();
 
-      const hours =
-        Math.floor(
-          seconds / 3600
-        );
 
+/* 공부 시작 */
 
-      const minutes =
-        Math.floor(
-          (seconds % 3600) / 60
-        );
+document
+  .getElementById("startBtn")
+  .addEventListener("click", () => {
 
+    if (studyRunning) return;
 
-      const secs =
-        seconds % 60;
+    studyRunning = true;
 
+    studyState.textContent =
+      "공부 중 🔥";
 
-      timerElement.textContent =
+    studyInterval =
+      setInterval(() => {
 
-        String(hours).padStart(2, "0")
-        + ":"
-        +
-        String(minutes).padStart(2, "0")
-        + ":"
-        +
-        String(secs).padStart(2, "0");
+        studySeconds++;
 
+        updateTimer();
 
-      localStorage.setItem(
-        "dohaStudySeconds",
-        seconds
-      );
+      }, 1000);
 
-    }
+  });
 
 
-    function startTimer() {
+/* 일시정지 */
 
-      if (timerRunning)
-        return;
+document
+  .getElementById("pauseBtn")
+  .addEventListener("click", () => {
 
+    studyRunning = false;
 
-      timerRunning = true;
+    clearInterval(studyInterval);
 
+    studyState.textContent =
+      "일시정지";
 
-      stateElement.textContent =
-        "공부 중 🔥";
+  });
 
 
-      timerInterval =
-        setInterval(() => {
+/* 초기화 */
 
-          seconds++;
+document
+  .getElementById("resetBtn")
+  .addEventListener("click", () => {
 
-          updateTimer();
+    studyRunning = false;
 
-        }, 1000);
+    clearInterval(studyInterval);
 
-    }
-
-
-    function pauseTimer() {
-
-      if (!timerRunning)
-        return;
-
-
-      timerRunning = false;
-
-
-      clearInterval(
-        timerInterval
-      );
-
-
-      stateElement.textContent =
-        "잠시 쉬는 중 ☕";
-
-    }
-
-
-    function resetTimer() {
-
-      timerRunning = false;
-
-
-      clearInterval(
-        timerInterval
-      );
-
-
-      seconds = 0;
-
-
-      updateTimer();
-
-
-      stateElement.textContent =
-        "준비";
-
-    }
-
-
-    startButton.addEventListener(
-      "click",
-      startTimer
-    );
-
-
-    pauseButton.addEventListener(
-      "click",
-      pauseTimer
-    );
-
-
-    resetButton.addEventListener(
-      "click",
-      resetTimer
-    );
-
+    studySeconds = 0;
 
     updateTimer();
 
+    studyState.textContent =
+      "준비";
+
+  });
 
 
-    /* =================================
-       통화시간
-    ================================= */
+/* ==================================
+   백색 소음
+================================== */
 
-    const callTime =
-      document.getElementById(
-        "callTime"
-      );
+let audioContext = null;
+let noiseSource = null;
+let gainNode = null;
 
+const noiseButton =
+  document.getElementById("noiseBtn");
 
-    let callSeconds = 0;
+const bottomNoiseButton =
+  document.getElementById("noiseBottomButton");
 
+const volumeSlider =
+  document.getElementById("volume");
 
-    setInterval(() => {
+const volumeNumber =
+  document.getElementById("volumeNumber");
 
-      callSeconds++;
-
-
-      const minutes =
-        Math.floor(
-          callSeconds / 60
-        );
-
-
-      const seconds =
-        callSeconds % 60;
+let noiseOn = false;
 
 
-      callTime.textContent =
+/*
+  백색 소음 생성
+*/
 
-        String(minutes).padStart(2, "0")
-        + ":"
-        +
-        String(seconds).padStart(2, "0");
+function createWhiteNoise() {
 
-    }, 1000);
+  audioContext =
+    new (
+      window.AudioContext ||
+      window.webkitAudioContext
+    )();
 
+  /*
+    2초짜리 백색소음 버퍼 생성
+  */
 
+  const bufferSize =
+    audioContext.sampleRate * 2;
 
-    /* =================================
-       통화 종료 버튼
-    ================================= */
-
-    const callButton =
-      document.getElementById(
-        "callButton"
-      );
-
-
-    callButton.addEventListener(
-      "click",
-      () => {
-
-        if (stream) {
-
-          stream
-            .getTracks()
-            .forEach(
-              track => track.stop()
-            );
-
-          video.srcObject = null;
-
-          stream = null;
-
-          placeholder.style.display =
-            "flex";
-
-          cameraButton.textContent =
-            "📷";
-
-        }
-
-        pauseTimer();
-
-        stateElement.textContent =
-          "통화 종료";
-
-      }
+  const buffer =
+    audioContext.createBuffer(
+      1,
+      bufferSize,
+      audioContext.sampleRate
     );
 
+  const data =
+    buffer.getChannelData(0);
 
-  </script>
+  for (let i = 0; i < bufferSize; i++) {
 
+    data[i] =
+      Math.random() * 2 - 1;
+
+  }
+
+
+  noiseSource =
+    audioContext.createBufferSource();
+
+  noiseSource.buffer = buffer;
+
+  noiseSource.loop = true;
+
+
+  gainNode =
+    audioContext.createGain();
+
+  /*
+    처음 음량 35%
+  */
+
+  gainNode.gain.value =
+    Number(volumeSlider.value) / 100;
+
+
+  noiseSource.connect(gainNode);
+
+  gainNode.connect(
+    audioContext.destination
+  );
+
+  noiseSource.start();
+
+}
+
+
+/* 백색소음 켜기 */
+
+async function turnNoiseOn() {
+
+  /*
+    아이폰에서는 사용자 터치 후
+    AudioContext를 실행해야 함
+  */
+
+  if (!audioContext) {
+
+    createWhiteNoise();
+
+  }
+
+  if (
+    audioContext.state === "suspended"
+  ) {
+
+    await audioContext.resume();
+
+  }
+
+  noiseOn = true;
+
+  noiseButton.textContent =
+    "🔊 ON";
+
+  noiseButton.classList.add("on");
+
+  bottomNoiseButton.textContent =
+    "🔊";
+
+}
+
+
+/* 백색소음 끄기 */
+
+function turnNoiseOff() {
+
+  noiseOn = false;
+
+  if (gainNode) {
+
+    gainNode.gain.value = 0;
+
+  }
+
+  noiseButton.textContent =
+    "🔇 OFF";
+
+  noiseButton.classList.remove("on");
+
+  bottomNoiseButton.textContent =
+    "🔇";
+
+}
+
+
+/* 메인 백색소음 버튼 */
+
+noiseButton.addEventListener(
+  "click",
+  async () => {
+
+    if (noiseOn) {
+
+      turnNoiseOff();
+
+    } else {
+
+      await turnNoiseOn();
+
+    }
+
+  }
+);
+
+
+/* 하단 백색소음 버튼 */
+
+bottomNoiseButton.addEventListener(
+  "click",
+  async () => {
+
+    if (noiseOn) {
+
+      turnNoiseOff();
+
+    } else {
+
+      await turnNoiseOn();
+
+    }
+
+  }
+);
+
+
+/* ==================================
+   음량 조절
+================================== */
+
+volumeSlider.addEventListener(
+  "input",
+  () => {
+
+    const volume =
+      Number(volumeSlider.value);
+
+    volumeNumber.textContent =
+      volume + "%";
+
+    if (gainNode) {
+
+      /*
+        음량을 부드럽게 변경
+      */
+
+      gainNode.gain.value =
+        volume / 100;
+
+    }
+
+  }
+);
+
+
+/* ==================================
+   카메라 버튼
+================================== */
+
+document
+  .getElementById("cameraButton")
+  .addEventListener("click", () => {
+
+    if (!camera.srcObject) {
+
+      startCamera();
+
+      return;
+
+    }
+
+    const tracks =
+      camera.srcObject.getVideoTracks();
+
+    tracks.forEach(track => {
+
+      track.enabled =
+        !track.enabled;
+
+    });
+
+    const enabled =
+      tracks[0]?.enabled;
+
+    document.getElementById(
+      "cameraButton"
+    ).textContent =
+      enabled ? "📷" : "🚫";
+
+  });
+
+
+/* ==================================
+   통화 종료 버튼
+================================== */
+
+document
+  .getElementById("hangupButton")
+  .addEventListener("click", () => {
+
+    /*
+      카메라 정지
+    */
+
+    if (camera.srcObject) {
+
+      camera.srcObject
+        .getTracks()
+        .forEach(track => {
+          track.stop();
+        });
+
+      camera.srcObject = null;
+
+    }
+
+
+    /*
+      공부시간 정지
+    */
+
+    studyRunning = false;
+
+    clearInterval(studyInterval);
+
+    studyState.textContent =
+      "통화 종료";
+
+  });
+
+</script>
 
 </body>
-
 </html>
