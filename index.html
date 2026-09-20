@@ -1,0 +1,315 @@
+```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>도하의 스터디룸 🐦</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #eeeef2;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    /* 전체 화면 */
+    .room {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+    }
+
+    /* 제목 */
+    .title {
+      position: absolute;
+      top: 25px;
+      left: 30px;
+      font-size: 24px;
+      font-weight: bold;
+      z-index: 10;
+    }
+
+    /* 내 카메라 */
+    .camera-box {
+      position: absolute;
+      right: 30px;
+      bottom: 30px;
+
+      width: 280px;
+      height: 180px;
+
+      background: #222;
+      border-radius: 20px;
+      overflow: hidden;
+
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+
+      z-index: 5;
+    }
+
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+
+      /* 거울처럼 보이게 */
+      transform: scaleX(-1);
+    }
+
+    /* 카메라 버튼 */
+    .camera-button {
+      position: absolute;
+      right: 30px;
+      bottom: 225px;
+
+      border: none;
+      border-radius: 12px;
+
+      padding: 12px 18px;
+
+      background: white;
+      font-size: 15px;
+      cursor: pointer;
+
+      box-shadow: 0 5px 15px rgba(0,0,0,0.12);
+
+      z-index: 10;
+    }
+
+    /* 바닥 */
+    .floor {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 120px;
+
+      background: #d9d5cc;
+    }
+
+    /* 비둘기 */
+    .pigeon {
+      position: absolute;
+      bottom: 95px;
+      left: -100px;
+
+      font-size: 65px;
+
+      animation:
+        walk 12s linear infinite,
+        head 1.5s ease-in-out infinite;
+
+      z-index: 3;
+    }
+
+    /* 비둘기가 왔다갔다 */
+    @keyframes walk {
+      0% {
+        left: -100px;
+        transform: scaleX(1);
+      }
+
+      45% {
+        left: 55%;
+        transform: scaleX(1);
+      }
+
+      50% {
+        left: 55%;
+        transform: scaleX(-1);
+      }
+
+      95% {
+        left: -100px;
+        transform: scaleX(-1);
+      }
+
+      100% {
+        left: -100px;
+        transform: scaleX(1);
+      }
+    }
+
+    /* 고개 까딱 */
+    @keyframes head {
+      0%, 40%, 100% {
+        margin-top: 0;
+      }
+
+      45% {
+        margin-top: 7px;
+      }
+
+      50% {
+        margin-top: 0;
+      }
+    }
+
+    /* 비둘기 이름 */
+    .pigeon-name {
+      position: absolute;
+      bottom: 175px;
+      left: 30px;
+
+      background: white;
+      padding: 8px 13px;
+
+      border-radius: 12px;
+
+      font-size: 14px;
+
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+
+      animation: nameMove 12s linear infinite;
+      z-index: 4;
+    }
+
+    @keyframes nameMove {
+      0% {
+        left: -100px;
+        opacity: 0;
+      }
+
+      10% {
+        opacity: 1;
+      }
+
+      45% {
+        left: 55%;
+      }
+
+      50% {
+        left: 55%;
+      }
+
+      90% {
+        opacity: 1;
+      }
+
+      100% {
+        left: -100px;
+        opacity: 0;
+      }
+    }
+
+    /* 상태 */
+    .status {
+      position: absolute;
+      top: 70px;
+      left: 30px;
+
+      color: #777;
+      font-size: 14px;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="room">
+
+    <div class="title">
+      📚 도하의 스터디룸
+    </div>
+
+    <div class="status" id="status">
+      🐦 오늘도 비둘기와 함께 공부하는 중...
+    </div>
+
+
+    <!-- 비둘기 -->
+    <div class="pigeon">
+      🐦
+    </div>
+
+    <div class="pigeon-name">
+      🐦 비둘기
+    </div>
+
+
+    <!-- 바닥 -->
+    <div class="floor"></div>
+
+
+    <!-- 내 카메라 -->
+    <div class="camera-box">
+      <video id="camera" autoplay playsinline></video>
+    </div>
+
+
+    <!-- 카메라 버튼 -->
+    <button class="camera-button" id="cameraButton">
+      📷 카메라 켜기
+    </button>
+
+  </div>
+
+
+  <script>
+  const video = document.getElementById("camera");
+  const button = document.getElementById("cameraButton");
+  const status = document.getElementById("status");
+
+  let stream = null;
+
+  button.addEventListener("click", async () => {
+
+    if (stream) {
+      stream.getTracks().forEach(track => track.stop());
+
+      video.srcObject = null;
+      stream = null;
+
+      button.textContent = "📷 카메라 켜기";
+      status.textContent = "🐦 카메라가 꺼졌어요.";
+      return;
+    }
+
+    try {
+
+      stream = await navigator.mediaDevices.getUserMedia({
+        video: {
+          width: { ideal: 1280 },
+          height: { ideal: 720 },
+          facingMode: "user"
+        },
+        audio: false
+      });
+
+      video.srcObject = stream;
+
+      // 영상 데이터가 준비되면 재생
+      video.onloadedmetadata = async () => {
+        try {
+          await video.play();
+
+          status.textContent = "🐦 도하 + 비둘기 스터디 시작!";
+          button.textContent = "⏹ 카메라 끄기";
+
+        } catch (error) {
+          console.error("영상 재생 오류:", error);
+          status.textContent = "영상 재생에 실패했어요.";
+        }
+      };
+
+    } catch (error) {
+
+      console.error("카메라 오류:", error);
+
+      status.textContent =
+        "카메라를 사용할 수 없어요: " + error.name;
+
+    }
+
+  });
+  </script>
+
+</body>
+</html>
