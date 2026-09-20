@@ -1,572 +1,777 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>도하의 스터디룸 🐦</title>
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+  >
+
+  <title>도하의 스터디콜 🐦</title>
+
 
   <style>
+
     * {
       box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
     }
+
 
     html,
     body {
+
       margin: 0;
+
       width: 100%;
       height: 100%;
+
       overflow: hidden;
+
+      background: #111;
+
+      font-family:
+        Arial,
+        "Noto Sans KR",
+        sans-serif;
+
     }
+
 
     body {
-      background: #eeeef2;
-      font-family: Arial, sans-serif;
+
+      display: flex;
+
+      justify-content: center;
+
     }
 
-    /* =========================
-       전체 화면
-    ========================= */
 
-    .room {
-      width: 100%;
-      height: 100%;
+    /* =================================
+       전체 휴대폰 화면
+    ================================= */
+
+    .phone {
+
       position: relative;
+
+      width: 100%;
+      max-width: 480px;
+
+      height: 100dvh;
+
+      background: #202124;
+
       overflow: hidden;
+
     }
 
 
-    /* =========================
-       제목
-    ========================= */
+    /* =================================
+       상단
+    ================================= */
 
-    .title {
+    .top-bar {
+
       position: absolute;
 
-      top: 25px;
-      left: 30px;
+      top: 0;
+      left: 0;
 
-      font-size: 24px;
-      font-weight: bold;
+      width: 100%;
 
-      z-index: 100;
+      height: 70px;
+
+      padding:
+        18px
+        18px
+        10px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      color: white;
+
+      z-index: 20;
+
+      background:
+        linear-gradient(
+          to bottom,
+          rgba(0,0,0,.55),
+          transparent
+        );
+
     }
 
 
-    /* =========================
-       상태 문구
-    ========================= */
+    .call-title {
 
-    .status {
-      position: absolute;
+      display: flex;
 
-      top: 70px;
-      left: 30px;
+      align-items: center;
 
-      color: #777;
+      gap: 8px;
+
       font-size: 14px;
 
-      z-index: 100;
-    }
-
-
-    /* =========================
-       바닥
-    ========================= */
-
-    .floor {
-      position: absolute;
-
-      left: 0;
-      bottom: 0;
-
-      width: 100%;
-      height: 120px;
-
-      background: #d9d5cc;
-
-      z-index: 2;
-    }
-
-
-    /* =========================
-       비둘기
-    ========================= */
-
-    .pigeon {
-      position: absolute;
-
-      left: -100px;
-      bottom: 92px;
-
-      font-size: 65px;
-
-      z-index: 50;
-
-      pointer-events: none;
-
-      animation:
-        walk 12s linear infinite,
-        head 1.5s ease-in-out infinite;
-    }
-
-
-    @keyframes walk {
-
-      0% {
-        left: -100px;
-        transform: scaleX(1);
-      }
-
-      45% {
-        left: 55%;
-        transform: scaleX(1);
-      }
-
-      50% {
-        left: 55%;
-        transform: scaleX(-1);
-      }
-
-      95% {
-        left: -100px;
-        transform: scaleX(-1);
-      }
-
-      100% {
-        left: -100px;
-        transform: scaleX(1);
-      }
+      font-weight: bold;
 
     }
 
 
-    @keyframes head {
+    .live-dot {
+
+      width: 8px;
+      height: 8px;
+
+      background: #ff5c7a;
+
+      border-radius: 50%;
+
+      animation: blink 1.4s infinite;
+
+    }
+
+
+    @keyframes blink {
 
       0%,
-      40%,
       100% {
-        margin-top: 0;
-      }
-
-      45% {
-        margin-top: 7px;
+        opacity: 1;
       }
 
       50% {
-        margin-top: 0;
+        opacity: .35;
       }
 
     }
 
 
-    /* =========================
-       비둘기 이름
-    ========================= */
+    .call-time {
 
-    .pigeon-name {
+      font-size: 12px;
+
+      opacity: .8;
+
+    }
+
+
+    /* =================================
+       🐦 비둘기 영상
+    ================================= */
+
+    .pigeon-video {
+
       position: absolute;
 
-      left: -100px;
-      bottom: 170px;
+      top: 0;
+      left: 0;
 
-      background: white;
+      width: 100%;
 
-      padding: 8px 13px;
+      height: 56%;
+
+      overflow: hidden;
+
+      background:
+        linear-gradient(
+          135deg,
+          #dfe7ee,
+          #c9d2dc
+        );
+
+    }
+
+
+    /* 가짜 영상 배경 */
+
+    .pigeon-room {
+
+      position: absolute;
+
+      inset: 0;
+
+      background:
+
+        radial-gradient(
+          circle at 75% 25%,
+          rgba(255,255,255,.9),
+          transparent 30%
+        ),
+
+        linear-gradient(
+          135deg,
+          #e8edf1,
+          #bfc9d2
+        );
+
+    }
+
+
+    /* 창문 */
+
+    .window {
+
+      position: absolute;
+
+      top: 16%;
+
+      right: 8%;
+
+      width: 30%;
+
+      height: 27%;
 
       border-radius: 12px;
 
-      font-size: 14px;
+      background:
+        linear-gradient(
+          90deg,
+          transparent 48%,
+          rgba(255,255,255,.7) 49%,
+          rgba(255,255,255,.7) 51%,
+          transparent 52%
+        ),
+        linear-gradient(
+          0deg,
+          transparent 48%,
+          rgba(255,255,255,.7) 49%,
+          rgba(255,255,255,.7) 51%,
+          transparent 52%
+        ),
+        #b8d4e4;
 
       box-shadow:
-        0 4px 12px rgba(0, 0, 0, 0.1);
+        0 8px 25px rgba(0,0,0,.1);
 
-      z-index: 51;
-
-      pointer-events: none;
-
-      animation: nameMove 12s linear infinite;
     }
 
 
-    @keyframes nameMove {
+    /* 책상 */
+
+    .pigeon-desk {
+
+      position: absolute;
+
+      bottom: 0;
+      left: 0;
+
+      width: 100%;
+
+      height: 20%;
+
+      background: #c8b39a;
+
+    }
+
+
+    /* 🐦 */
+
+    .pigeon-character {
+
+      position: absolute;
+
+      left: 50%;
+
+      top: 52%;
+
+      transform:
+        translate(-50%, -50%);
+
+      font-size: 125px;
+
+      filter:
+        drop-shadow(
+          0 12px 8px rgba(0,0,0,.18)
+        );
+
+      animation:
+        pigeonMove 3s ease-in-out infinite;
+
+      z-index: 5;
+
+    }
+
+
+    @keyframes pigeonMove {
 
       0% {
-        left: -100px;
-        opacity: 0;
-      }
 
-      10% {
-        opacity: 1;
-      }
+        transform:
+          translate(-50%, -50%)
+          rotate(-2deg);
 
-      45% {
-        left: 55%;
       }
 
       50% {
-        left: 55%;
-      }
 
-      90% {
-        opacity: 1;
+        transform:
+          translate(-50%, -53%)
+          rotate(2deg);
+
       }
 
       100% {
-        left: -100px;
-        opacity: 0;
+
+        transform:
+          translate(-50%, -50%)
+          rotate(-2deg);
+
       }
 
     }
 
 
-    /* =========================
-       카메라
-    ========================= */
+    /* 비둘기 이름 */
 
-    .camera-box {
+    .pigeon-label {
+
       position: absolute;
 
-      right: 30px;
-      bottom: 30px;
+      left: 18px;
 
-      width: 280px;
-      height: 180px;
+      bottom: 22%;
 
-      background: #222;
+      padding:
+        7px
+        11px;
 
-      border-radius: 20px;
+      border-radius: 10px;
+
+      background:
+        rgba(0,0,0,.45);
+
+      color: white;
+
+      font-size: 12px;
+
+      z-index: 10;
+
+      backdrop-filter: blur(5px);
+
+    }
+
+
+    /* =================================
+       도하 카메라
+    ================================= */
+
+    .my-video {
+
+      position: absolute;
+
+      left: 12px;
+      right: 12px;
+
+      bottom: 125px;
+
+      height: 30%;
+
+      border-radius: 22px;
 
       overflow: hidden;
 
-      box-shadow:
-        0 8px 30px rgba(0, 0, 0, 0.2);
+      background: #111;
 
-      z-index: 20;
+      border:
+        2px solid
+        rgba(255,255,255,.15);
+
+      box-shadow:
+        0 12px 35px
+        rgba(0,0,0,.4);
+
+      z-index: 10;
+
     }
 
 
     video {
+
       width: 100%;
       height: 100%;
 
       object-fit: cover;
 
-      transform: scaleX(-1);
+      transform:
+        scaleX(-1);
+
     }
 
 
-    /* =========================
-       카메라 버튼
-    ========================= */
+    /* 카메라 꺼졌을 때 */
 
-    .camera-button {
+    .camera-placeholder {
+
       position: absolute;
 
-      right: 30px;
-      bottom: 225px;
+      inset: 0;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      flex-direction: column;
+
+      gap: 8px;
+
+      color: #aaa;
+
+      font-size: 13px;
+
+      background: #171717;
+
+    }
+
+
+    .camera-icon {
+
+      font-size: 35px;
+
+    }
+
+
+    .me-label {
+
+      position: absolute;
+
+      left: 12px;
+      bottom: 12px;
+
+      padding:
+        6px
+        10px;
+
+      border-radius: 9px;
+
+      background:
+        rgba(0,0,0,.5);
+
+      color: white;
+
+      font-size: 11px;
+
+      z-index: 5;
+
+    }
+
+
+    /* =================================
+       공부시간
+    ================================= */
+
+    .timer-card {
+
+      position: absolute;
+
+      left: 50%;
+
+      bottom: 72px;
+
+      transform:
+        translateX(-50%);
+
+      width: calc(100% - 36px);
+
+      padding:
+        12px
+        15px;
+
+      border-radius: 18px;
+
+      background:
+        rgba(30,30,32,.92);
+
+      border:
+        1px solid
+        rgba(255,255,255,.08);
+
+      color: white;
+
+      z-index: 30;
+
+      backdrop-filter: blur(15px);
+
+    }
+
+
+    .timer-title {
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      font-size: 11px;
+
+      color: #aaa;
+
+      margin-bottom: 3px;
+
+    }
+
+
+    .study-state {
+
+      color: #8fd3ff;
+
+    }
+
+
+    .timer {
+
+      text-align: center;
+
+      font-size: 34px;
+
+      font-weight: 700;
+
+      letter-spacing: 2px;
+
+      margin:
+        2px
+        0
+        8px;
+
+    }
+
+
+    .timer-buttons {
+
+      display: flex;
+
+      gap: 7px;
+
+    }
+
+
+    .timer-buttons button {
+
+      flex: 1;
 
       border: none;
 
-      border-radius: 12px;
+      border-radius: 11px;
 
-      padding: 12px 18px;
+      padding:
+        8px
+        5px;
 
-      background: white;
+      background: #333;
 
-      font-size: 15px;
+      color: white;
+
+      font-size: 12px;
+
+      font-weight: bold;
 
       cursor: pointer;
 
-      box-shadow:
-        0 5px 15px rgba(0, 0, 0, 0.12);
-
-      z-index: 100;
     }
 
 
-    /* =========================
-       📱 휴대폰
-    ========================= */
+    .timer-buttons button:active {
 
-    @media (max-width: 600px) {
-
-      .title {
-        top: 20px;
-        left: 0;
-
-        width: 100%;
-
-        text-align: center;
-
-        font-size: 21px;
-      }
-
-
-      .status {
-        top: 55px;
-        left: 0;
-
-        width: 100%;
-
-        text-align: center;
-
-        font-size: 12px;
-      }
-
-
-      /* 휴대폰 바닥 */
-
-      .floor {
-        height: 90px;
-
-        z-index: 2;
-      }
-
-
-      /* 휴대폰 비둘기 */
-
-      .pigeon {
-        bottom: 82px;
-
-        font-size: 52px;
-
-        z-index: 50;
-      }
-
-
-      /* 비둘기 이름 */
-
-      .pigeon-name {
-        bottom: 145px;
-
-        font-size: 12px;
-
-        padding: 6px 10px;
-
-        border-radius: 10px;
-
-        z-index: 51;
-      }
-
-
-      /* 휴대폰 카메라 */
-
-      .camera-box {
-        left: 16px;
-        right: 16px;
-
-        bottom: 58px;
-
-        width: auto;
-
-        height: 30vh;
-
-        min-height: 170px;
-        max-height: 240px;
-
-        border-radius: 18px;
-
-        z-index: 20;
-      }
-
-
-      /* 카메라 버튼 */
-
-      .camera-button {
-        left: 50%;
-        right: auto;
-
-        bottom: 15px;
-
-        transform: translateX(-50%);
-
-        padding: 9px 16px;
-
-        border-radius: 12px;
-
-        font-size: 13px;
-
-        white-space: nowrap;
-
-        z-index: 100;
-      }
+      transform: scale(.96);
 
     }
 
 
-    /* =========================
-       📱 아주 작은 휴대폰
-    ========================= */
+    .start-btn {
+
+      background:
+        #ffffff !important;
+
+      color:
+        #222 !important;
+
+    }
+
+
+    /* =================================
+       하단 통화바
+    ================================= */
+
+    .bottom-bar {
+
+      position: absolute;
+
+      bottom: 0;
+      left: 0;
+
+      width: 100%;
+
+      height: 58px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      gap: 28px;
+
+      background:
+        rgba(10,10,10,.92);
+
+      z-index: 40;
+
+    }
+
+
+    .call-button {
+
+      width: 40px;
+      height: 40px;
+
+      border: none;
+
+      border-radius: 50%;
+
+      background: #333;
+
+      color: white;
+
+      font-size: 17px;
+
+    }
+
+
+    .hangup {
+
+      background: #ff526b;
+
+    }
+
+
+    /* =================================
+       작은 화면
+    ================================= */
 
     @media (max-width: 380px) {
 
-      .title {
-        font-size: 19px;
+      .pigeon-character {
+
+        font-size: 105px;
+
       }
 
 
-      .status {
-        font-size: 11px;
+      .timer {
+
+        font-size: 29px;
+
       }
 
 
-      .camera-box {
-        left: 12px;
-        right: 12px;
+      .my-video {
 
-        bottom: 55px;
+        bottom: 122px;
 
-        height: 29vh;
-
-        min-height: 150px;
-      }
-
-
-      .camera-button {
-        bottom: 12px;
-
-        font-size: 12px;
-
-        padding: 8px 14px;
-      }
-
-
-      .pigeon {
-        bottom: 78px;
-
-        font-size: 47px;
-
-        z-index: 50;
-      }
-
-
-      .pigeon-name {
-        bottom: 135px;
-
-        font-size: 11px;
-      }
-
-    }
-
-
-    /* =========================
-       📱 휴대폰 가로모드
-    ========================= */
-
-    @media (max-width: 900px) and (orientation: landscape) {
-
-      .title {
-        top: 12px;
-        left: 20px;
-
-        width: auto;
-
-        font-size: 18px;
-      }
-
-
-      .status {
-        top: 40px;
-        left: 20px;
-
-        width: auto;
-
-        font-size: 11px;
-      }
-
-
-      .floor {
-        height: 65px;
-      }
-
-
-      .pigeon {
-        bottom: 55px;
-
-        font-size: 45px;
-
-        z-index: 50;
-      }
-
-
-      .pigeon-name {
-        bottom: 105px;
-      }
-
-
-      .camera-box {
-        width: 210px;
-        height: 135px;
-
-        right: 15px;
-        bottom: 15px;
-
-        border-radius: 15px;
-
-        z-index: 20;
-      }
-
-
-      .camera-button {
-        right: 15px;
-        bottom: 160px;
-
-        left: auto;
-
-        transform: none;
-
-        padding: 8px 13px;
-
-        font-size: 12px;
       }
 
     }
 
   </style>
+
 </head>
 
 
 <body>
 
-  <div class="room">
 
-    <!-- 제목 -->
+  <main class="phone">
 
-    <div class="title">
-      📚 도하의 스터디룸
+
+    <!-- =============================
+         상단
+    ============================== -->
+
+    <div class="top-bar">
+
+      <div class="call-title">
+
+        <span class="live-dot"></span>
+
+        🐦 비둘기와 스터디콜
+
+      </div>
+
+
+      <div
+        class="call-time"
+        id="callTime">
+
+        00:00
+
+      </div>
+
     </div>
 
 
-    <!-- 상태 -->
 
-    <div class="status" id="status">
-      🐦 오늘도 비둘기와 함께 공부하는 중...
-    </div>
+    <!-- =============================
+         비둘기 영상
+    ============================== -->
 
-
-    <!-- 비둘기 -->
-
-    <div class="pigeon">
-      🐦
-    </div>
+    <section class="pigeon-video">
 
 
-    <!-- 비둘기 이름 -->
+      <div class="pigeon-room">
 
-    <div class="pigeon-name">
-      🐦 비둘기
-    </div>
+        <div class="window"></div>
 
+        <div class="pigeon-desk"></div>
 
-    <!-- 바닥 -->
-
-    <div class="floor"></div>
+      </div>
 
 
-    <!-- 카메라 -->
+      <div class="pigeon-character">
 
-    <div class="camera-box">
+        🐦
+
+      </div>
+
+
+      <div class="pigeon-label">
+
+        🐦 비둘기 · 공부 중
+
+      </div>
+
+
+    </section>
+
+
+
+    <!-- =============================
+         내 카메라
+    ============================== -->
+
+    <section class="my-video">
+
+
+      <div
+        class="camera-placeholder"
+        id="cameraPlaceholder">
+
+        <div class="camera-icon">
+          📷
+        </div>
+
+        카메라를 켜면
+        여기에 도하가 보여요
+
+      </div>
+
 
       <video
         id="camera"
@@ -574,69 +779,176 @@
         playsinline>
       </video>
 
+
+      <div class="me-label">
+
+        도하 · 공부 중
+
+      </div>
+
+
+    </section>
+
+
+
+    <!-- =============================
+         공부시간
+    ============================== -->
+
+    <section class="timer-card">
+
+
+      <div class="timer-title">
+
+        <span>
+          ⏱ 공부시간
+        </span>
+
+
+        <span
+          class="study-state"
+          id="studyState">
+
+          준비
+
+        </span>
+
+      </div>
+
+
+      <div
+        class="timer"
+        id="timer">
+
+        00:00:00
+
+      </div>
+
+
+      <div class="timer-buttons">
+
+
+        <button
+          class="start-btn"
+          id="startBtn">
+
+          ▶ 공부 시작
+
+        </button>
+
+
+        <button
+          id="pauseBtn">
+
+          ⏸ 일시정지
+
+        </button>
+
+
+        <button
+          id="resetBtn">
+
+          🔄 초기화
+
+        </button>
+
+
+      </div>
+
+
+    </section>
+
+
+
+    <!-- =============================
+         하단 통화 버튼
+    ============================== -->
+
+    <div class="bottom-bar">
+
+
+      <button
+        class="call-button"
+        id="cameraButton">
+
+        📷
+
+      </button>
+
+
+      <button
+        class="call-button hangup"
+        id="callButton">
+
+        📞
+
+      </button>
+
+
+      <button
+        class="call-button">
+
+        🔊
+
+      </button>
+
+
     </div>
 
 
-    <!-- 카메라 버튼 -->
+  </main>
 
-    <button
-      class="camera-button"
-      id="cameraButton">
-
-      📷 카메라 켜기
-
-    </button>
-
-  </div>
 
 
   <script>
 
+
+    /* =================================
+       카메라
+    ================================= */
+
     const video =
       document.getElementById("camera");
 
-    const button =
+    const cameraButton =
       document.getElementById("cameraButton");
 
-    const status =
-      document.getElementById("status");
+    const placeholder =
+      document.getElementById(
+        "cameraPlaceholder"
+      );
 
 
     let stream = null;
 
 
-    button.addEventListener(
+    cameraButton.addEventListener(
       "click",
       async () => {
 
-
-        /* =====================
-           카메라 끄기
-        ===================== */
 
         if (stream) {
 
           stream
             .getTracks()
-            .forEach(track => track.stop());
+            .forEach(
+              track => track.stop()
+            );
 
           video.srcObject = null;
 
           stream = null;
 
-          button.textContent =
-            "📷 카메라 켜기";
+          placeholder.style.display =
+            "flex";
 
-          status.textContent =
-            "🐦 카메라가 꺼졌어요.";
+          cameraButton.textContent =
+            "📷";
 
           return;
+
         }
 
-
-        /* =====================
-           카메라 켜기
-        ===================== */
 
         try {
 
@@ -646,15 +958,15 @@
 
                 video: {
 
-                  width: {
-                    ideal: 1280
-                  },
+                  facingMode: "user",
 
-                  height: {
+                  width: {
                     ideal: 720
                   },
 
-                  facingMode: "user"
+                  height: {
+                    ideal: 1280
+                  }
 
                 },
 
@@ -665,55 +977,276 @@
 
           video.srcObject = stream;
 
+          placeholder.style.display =
+            "none";
 
-          video.onloadedmetadata =
-            async () => {
 
-              try {
+          cameraButton.textContent =
+            "⏹";
 
-                await video.play();
-
-                status.textContent =
-                  "🐦 도하 + 비둘기 스터디 시작!";
-
-                button.textContent =
-                  "⏹ 카메라 끄기";
-
-              }
-
-              catch (error) {
-
-                console.error(
-                  "영상 재생 오류:",
-                  error
-                );
-
-                status.textContent =
-                  "영상 재생에 실패했어요.";
-
-              }
-
-            };
 
         }
 
         catch (error) {
 
-          console.error(
-            "카메라 오류:",
-            error
-          );
+          console.error(error);
 
-          status.textContent =
-            "카메라를 사용할 수 없어요: "
-            + error.name;
+          alert(
+            "카메라를 사용할 수 없어요.\n" +
+            "브라우저에서 카메라 권한을 허용해주세요."
+          );
 
         }
 
       }
     );
 
+
+
+    /* =================================
+       공부시간 타이머
+    ================================= */
+
+    const timerElement =
+      document.getElementById("timer");
+
+    const stateElement =
+      document.getElementById("studyState");
+
+    const startButton =
+      document.getElementById("startBtn");
+
+    const pauseButton =
+      document.getElementById("pauseBtn");
+
+    const resetButton =
+      document.getElementById("resetBtn");
+
+
+    let seconds =
+      Number(
+        localStorage.getItem(
+          "dohaStudySeconds"
+        )
+      ) || 0;
+
+
+    let timerRunning = false;
+
+    let timerInterval = null;
+
+
+    function updateTimer() {
+
+      const hours =
+        Math.floor(
+          seconds / 3600
+        );
+
+
+      const minutes =
+        Math.floor(
+          (seconds % 3600) / 60
+        );
+
+
+      const secs =
+        seconds % 60;
+
+
+      timerElement.textContent =
+
+        String(hours).padStart(2, "0")
+        + ":"
+        +
+        String(minutes).padStart(2, "0")
+        + ":"
+        +
+        String(secs).padStart(2, "0");
+
+
+      localStorage.setItem(
+        "dohaStudySeconds",
+        seconds
+      );
+
+    }
+
+
+    function startTimer() {
+
+      if (timerRunning)
+        return;
+
+
+      timerRunning = true;
+
+
+      stateElement.textContent =
+        "공부 중 🔥";
+
+
+      timerInterval =
+        setInterval(() => {
+
+          seconds++;
+
+          updateTimer();
+
+        }, 1000);
+
+    }
+
+
+    function pauseTimer() {
+
+      if (!timerRunning)
+        return;
+
+
+      timerRunning = false;
+
+
+      clearInterval(
+        timerInterval
+      );
+
+
+      stateElement.textContent =
+        "잠시 쉬는 중 ☕";
+
+    }
+
+
+    function resetTimer() {
+
+      timerRunning = false;
+
+
+      clearInterval(
+        timerInterval
+      );
+
+
+      seconds = 0;
+
+
+      updateTimer();
+
+
+      stateElement.textContent =
+        "준비";
+
+    }
+
+
+    startButton.addEventListener(
+      "click",
+      startTimer
+    );
+
+
+    pauseButton.addEventListener(
+      "click",
+      pauseTimer
+    );
+
+
+    resetButton.addEventListener(
+      "click",
+      resetTimer
+    );
+
+
+    updateTimer();
+
+
+
+    /* =================================
+       통화시간
+    ================================= */
+
+    const callTime =
+      document.getElementById(
+        "callTime"
+      );
+
+
+    let callSeconds = 0;
+
+
+    setInterval(() => {
+
+      callSeconds++;
+
+
+      const minutes =
+        Math.floor(
+          callSeconds / 60
+        );
+
+
+      const seconds =
+        callSeconds % 60;
+
+
+      callTime.textContent =
+
+        String(minutes).padStart(2, "0")
+        + ":"
+        +
+        String(seconds).padStart(2, "0");
+
+    }, 1000);
+
+
+
+    /* =================================
+       통화 종료 버튼
+    ================================= */
+
+    const callButton =
+      document.getElementById(
+        "callButton"
+      );
+
+
+    callButton.addEventListener(
+      "click",
+      () => {
+
+        if (stream) {
+
+          stream
+            .getTracks()
+            .forEach(
+              track => track.stop()
+            );
+
+          video.srcObject = null;
+
+          stream = null;
+
+          placeholder.style.display =
+            "flex";
+
+          cameraButton.textContent =
+            "📷";
+
+        }
+
+        pauseTimer();
+
+        stateElement.textContent =
+          "통화 종료";
+
+      }
+    );
+
+
   </script>
 
+
 </body>
+
 </html>
