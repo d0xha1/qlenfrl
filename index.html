@@ -22,8 +22,10 @@ html,
 body {
   margin: 0;
   padding: 0;
+
   width: 100%;
   height: 100%;
+
   overflow: hidden;
 
   background: #151619;
@@ -41,9 +43,9 @@ body {
 }
 
 
-/* =================================
+/* =========================
    전체 앱
-================================= */
+========================= */
 
 .app {
 
@@ -62,9 +64,9 @@ body {
 }
 
 
-/* =================================
+/* =========================
    비둘기 화면
-================================= */
+========================= */
 
 .pigeon-screen {
 
@@ -74,7 +76,7 @@ body {
   left: 0;
 
   width: 100%;
-  height: 35%;
+  height: 43%;
 
   background:
     linear-gradient(
@@ -95,9 +97,9 @@ body {
 
   position: absolute;
 
-  top: 42px;
-  left: 25px;
-  right: 25px;
+  top: 58px;
+  left: 30px;
+  right: 30px;
 
   display: flex;
 
@@ -122,8 +124,8 @@ body {
 
 .red-dot {
 
-  width: 12px;
-  height: 12px;
+  width: 13px;
+  height: 13px;
 
   border-radius: 50%;
 
@@ -146,13 +148,13 @@ body {
 
   position: absolute;
 
-  right: 55px;
-  top: 90px;
+  right: 58px;
+  top: 110px;
 
-  width: 105px;
-  height: 105px;
+  width: 110px;
+  height: 190px;
 
-  border-radius: 17px;
+  border-radius: 18px;
 
   background: #afd0e2;
 
@@ -170,7 +172,7 @@ body {
   left: 50%;
   top: 0;
 
-  width: 5px;
+  width: 6px;
   height: 100%;
 
   transform: translateX(-50%);
@@ -188,7 +190,7 @@ body {
   top: 50%;
 
   width: 100%;
-  height: 5px;
+  height: 6px;
 
   transform: translateY(-50%);
 
@@ -196,23 +198,25 @@ body {
 }
 
 
-/* 비둘기 */
+/* =========================
+   비둘기
+========================= */
 
 .pigeon {
 
   position: absolute;
 
   left: 50%;
-  top: 61%;
+  top: 58%;
 
   transform:
     translate(-50%, -50%);
 
-  font-size: 105px;
+  font-size: 125px;
 
   filter:
     drop-shadow(
-      0 12px 12px rgba(0,0,0,.15)
+      0 15px 15px rgba(0,0,0,.15)
     );
 
   z-index: 10;
@@ -223,7 +227,7 @@ body {
 
 @keyframes pigeonFloat {
 
-  0%,100% {
+  0%, 100% {
 
     transform:
       translate(-50%, -50%)
@@ -235,7 +239,7 @@ body {
 
     transform:
       translate(-50%, -50%)
-      translateY(-5px);
+      translateY(-7px);
 
   }
 }
@@ -247,41 +251,43 @@ body {
 
   position: absolute;
 
-  left: 25px;
-  bottom: 14px;
+  left: 32px;
+  bottom: 18px;
 
-  padding: 9px 15px;
+  padding: 11px 17px;
 
-  border-radius: 13px;
+  border-radius: 14px;
 
   background:
-    rgba(70,70,70,.55);
+    rgba(70,70,70,.6);
 
   backdrop-filter:
     blur(8px);
 
-  font-size: 13px;
+  font-size: 14px;
+
+  font-weight: 600;
 
   z-index: 20;
 }
 
 
-/* =================================
+/* =========================
    내 카메라
-================================= */
+========================= */
 
 .my-video {
 
   position: absolute;
 
-  left: 18px;
-  right: 18px;
+  left: 22px;
+  right: 22px;
 
-  top: 33%;
+  top: 42%;
 
-  height: 21%;
+  height: 23%;
 
-  border-radius: 23px;
+  border-radius: 24px;
 
   overflow: hidden;
 
@@ -292,10 +298,10 @@ body {
     rgba(255,255,255,.16);
 
   box-shadow:
-    0 10px 25px
+    0 12px 30px
     rgba(0,0,0,.35);
 
-  z-index: 10;
+  z-index: 20;
 }
 
 #camera {
@@ -317,27 +323,27 @@ body {
   position: absolute;
 
   left: 14px;
-  bottom: 12px;
+  bottom: 13px;
 
-  padding: 7px 11px;
+  padding: 8px 13px;
 
-  border-radius: 11px;
+  border-radius: 12px;
 
   background:
     rgba(30,30,30,.7);
 
   backdrop-filter:
-    blur(7px);
+    blur(8px);
 
-  font-size: 12px;
+  font-size: 13px;
 
   z-index: 5;
 }
 
 
-/* =================================
-   컨트롤 영역
-================================= */
+/* =========================
+   공부시간 영역
+========================= */
 
 .control-area {
 
@@ -348,48 +354,47 @@ body {
 
   bottom: 0;
 
-  height: 47%;
+  height: 35%;
 
   padding:
-    13px
     18px
-    86px;
+    22px
+    82px;
 
   background: #1b1c20;
 
-  z-index: 30;
-
-  overflow: hidden;
+  z-index: 40;
 }
 
 
-/* =================================
-   공부시간 카드
-================================= */
+/* 공부 카드 */
 
 .study-card {
 
   width: 100%;
 
   padding:
-    14px
-    15px
-    13px;
+    17px
+    16px
+    16px;
 
-  border-radius: 21px;
+  border-radius: 23px;
 
   background: #1d1e22;
 
   border:
     1px solid
-    rgba(255,255,255,.09);
+    rgba(255,255,255,.1);
 
   box-shadow:
-    0 7px 20px
-    rgba(0,0,0,.2);
+    0 8px 25px
+    rgba(0,0,0,.25);
 
   text-align: center;
 }
+
+
+/* 카드 위 */
 
 .study-top {
 
@@ -400,7 +405,9 @@ body {
 
   color: #aeb0b7;
 
-  font-size: 14px;
+  font-size: 15px;
+
+  margin-bottom: 3px;
 }
 
 .study-state {
@@ -408,13 +415,16 @@ body {
   color: #83c9ff;
 }
 
+
+/* 타이머 */
+
 .timer {
 
   margin:
-    4px 0
-    10px;
+    5px 0
+    13px;
 
-  font-size: 38px;
+  font-size: 43px;
 
   font-weight: 800;
 
@@ -424,7 +434,7 @@ body {
 }
 
 
-/* 공부 버튼 */
+/* 버튼 */
 
 .study-buttons {
 
@@ -433,18 +443,20 @@ body {
   grid-template-columns:
     1.2fr 1fr 1fr;
 
-  gap: 7px;
+  gap: 9px;
 }
 
 .study-buttons button {
 
   border: none;
 
-  border-radius: 14px;
+  border-radius: 15px;
 
-  padding: 11px 4px;
+  padding:
+    13px
+    5px;
 
-  font-size: 12px;
+  font-size: 13px;
 
   font-weight: 700;
 
@@ -468,109 +480,9 @@ body {
 }
 
 
-/* =================================
-   백색 소음 카드
-================================= */
-
-.noise-card {
-
-  margin-top: 9px;
-
-  width: 100%;
-
-  padding:
-    11px 14px;
-
-  border-radius: 18px;
-
-  background: #24252a;
-
-  border:
-    1px solid
-    rgba(255,255,255,.08);
-}
-
-.noise-row {
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: space-between;
-}
-
-.noise-name {
-
-  font-size: 14px;
-
-  font-weight: 700;
-}
-
-.noise-toggle {
-
-  border: none;
-
-  padding:
-    7px 13px;
-
-  border-radius: 12px;
-
-  background: #33343a;
-
-  color: white;
-
-  font-size: 12px;
-
-  font-weight: 700;
-}
-
-.noise-toggle.on {
-
-  background: white;
-
-  color: #222;
-}
-
-
-/* 음량 */
-
-.volume-row {
-
-  display: flex;
-
-  align-items: center;
-
-  gap: 8px;
-
-  margin-top: 8px;
-
-  color: #aaa;
-
-  font-size: 12px;
-}
-
-#volume {
-
-  flex: 1;
-
-  height: 4px;
-
-  accent-color: white;
-}
-
-.volume-number {
-
-  width: 32px;
-
-  text-align: right;
-
-  color: #ddd;
-}
-
-
-/* =================================
-   하단 버튼
-================================= */
+/* =========================
+   하단 통화 버튼
+========================= */
 
 .bottom-buttons {
 
@@ -581,25 +493,24 @@ body {
 
   bottom: 0;
 
-  height: 70px;
+  height: 72px;
 
   background: #0d0e10;
 
   display: flex;
 
   justify-content: center;
-
   align-items: center;
 
-  gap: 40px;
+  gap: 42px;
 
   z-index: 100;
 }
 
 .call-button {
 
-  width: 52px;
-  height: 52px;
+  width: 54px;
+  height: 54px;
 
   border: none;
 
@@ -614,7 +525,7 @@ body {
 
   color: white;
 
-  font-size: 22px;
+  font-size: 23px;
 }
 
 .call-button:active {
@@ -624,59 +535,59 @@ body {
 
 .hangup {
 
-  width: 58px;
-  height: 58px;
+  width: 60px;
+  height: 60px;
 
   background: #ff4d72;
 
-  font-size: 25px;
+  font-size: 26px;
 }
 
 
-/* =================================
-   작은 아이폰
-================================= */
+/* =========================
+   작은 화면
+========================= */
 
 @media (max-height: 720px) {
 
   .call-header {
 
-    top: 30px;
+    top: 35px;
 
   }
 
   .pigeon-screen {
 
-    height: 34%;
-
-  }
-
-  .pigeon {
-
-    font-size: 88px;
+    height: 42%;
 
   }
 
   .window {
 
-    top: 65px;
+    top: 75px;
 
-    width: 85px;
-    height: 85px;
+    width: 90px;
+    height: 145px;
+
+  }
+
+  .pigeon {
+
+    font-size: 100px;
 
   }
 
   .my-video {
 
-    top: 32%;
+    top: 40%;
 
-    height: 20%;
+    height: 22%;
 
   }
 
   .control-area {
 
-    height: 48%;
+    height: 36%;
 
     padding-bottom: 78px;
 
@@ -684,23 +595,23 @@ body {
 
   .timer {
 
-    font-size: 32px;
+    font-size: 34px;
 
   }
 
 }
 
 
-/* =================================
-   아주 작은 화면
-================================= */
+/* =========================
+   작은 폭
+========================= */
 
 @media (max-width: 380px) {
 
   .call-header {
 
-    left: 18px;
-    right: 18px;
+    left: 20px;
+    right: 20px;
 
     font-size: 15px;
 
@@ -708,21 +619,27 @@ body {
 
   .pigeon {
 
-    font-size: 90px;
+    font-size: 105px;
 
   }
 
   .my-video {
 
-    left: 14px;
-    right: 14px;
+    left: 16px;
+    right: 16px;
 
   }
 
   .control-area {
 
-    padding-left: 13px;
-    padding-right: 13px;
+    padding-left: 15px;
+    padding-right: 15px;
+
+  }
+
+  .study-buttons {
+
+    gap: 6px;
 
   }
 
@@ -734,7 +651,7 @@ body {
 
   .timer {
 
-    font-size: 30px;
+    font-size: 31px;
 
   }
 
@@ -750,7 +667,7 @@ body {
 
 
   <!-- =========================
-       비둘기
+       비둘기 영상통화
   ========================== -->
 
   <section class="pigeon-screen">
@@ -814,13 +731,10 @@ body {
 
 
   <!-- =========================
-       공부 + 백색소음
+       공부시간
   ========================== -->
 
   <section class="control-area">
-
-
-    <!-- 공부시간 -->
 
     <div class="study-card">
 
@@ -854,62 +768,19 @@ body {
           ▶ 공부 시작
         </button>
 
-        <button id="pauseBtn">
+        <button
+          id="pauseBtn">
           ⏸ 일시정지
         </button>
 
-        <button id="resetBtn">
+        <button
+          id="resetBtn">
           🔄 초기화
         </button>
 
       </div>
 
     </div>
-
-
-
-    <!-- 백색소음 -->
-
-    <div class="noise-card">
-
-      <div class="noise-row">
-
-        <span class="noise-name">
-          🎧 백색 소음
-        </span>
-
-        <button
-          class="noise-toggle"
-          id="noiseBtn">
-          🔇 OFF
-        </button>
-
-      </div>
-
-
-      <div class="volume-row">
-
-        <span>
-          🔉
-        </span>
-
-        <input
-          type="range"
-          id="volume"
-          min="0"
-          max="100"
-          value="10">
-
-        <span
-          class="volume-number"
-          id="volumeNumber">
-          10%
-        </span>
-
-      </div>
-
-    </div>
-
 
   </section>
 
@@ -937,8 +808,8 @@ body {
 
     <button
       class="call-button"
-      id="noiseBottomButton">
-      🔇
+      id="speakerButton">
+      🔊
     </button>
 
   </div>
@@ -950,10 +821,9 @@ body {
 
 <script>
 
-
-/* =================================
+/* =========================
    카메라
-================================= */
+========================= */
 
 const camera =
   document.getElementById("camera");
@@ -1002,9 +872,9 @@ startCamera();
 
 
 
-/* =================================
+/* =========================
    통화 시간
-================================= */
+========================= */
 
 let callSeconds = 0;
 
@@ -1036,14 +906,13 @@ setInterval(() => {
       + String(seconds)
         .padStart(2, "0");
 
-
 }, 1000);
 
 
 
-/* =================================
+/* =========================
    공부시간
-================================= */
+========================= */
 
 let studySeconds =
   Number(
@@ -1071,7 +940,6 @@ const studyState =
 
 
 function updateTimer() {
-
 
   const hours =
     Math.floor(
@@ -1125,7 +993,6 @@ document
     "click",
     () => {
 
-
       if (studyRunning)
         return;
 
@@ -1162,7 +1029,6 @@ document
     "click",
     () => {
 
-
       studyRunning = false;
 
 
@@ -1187,7 +1053,6 @@ document
     "click",
     () => {
 
-
       studyRunning = false;
 
 
@@ -1210,338 +1075,15 @@ document
 
 
 
-/* =================================
-   백색 소음
-================================= */
-
-let audioContext = null;
-
-let noiseSource = null;
-
-let gainNode = null;
-
-let noiseOn = false;
-
-
-const noiseButton =
-  document.getElementById(
-    "noiseBtn"
-  );
-
-
-const bottomNoiseButton =
-  document.getElementById(
-    "noiseBottomButton"
-  );
-
-
-const volumeSlider =
-  document.getElementById(
-    "volume"
-  );
-
-
-const volumeNumber =
-  document.getElementById(
-    "volumeNumber"
-  );
-
-
-
-/*
-  최대 실제 음량을 낮게 설정
-
-  슬라이더 100%
-  → 실제 gain 0.20
-
-  기본 10%
-  → 실제 gain 0.02
-
-  그래서 기본 소리가 훨씬 작음.
-*/
-
-
-function getGain() {
-
-  return (
-    Number(
-      volumeSlider.value
-    ) / 100
-  ) * 0.20;
-
-}
-
-
-
-/* 백색소음 만들기 */
-
-function createWhiteNoise() {
-
-
-  const AudioContext =
-    window.AudioContext ||
-    window.webkitAudioContext;
-
-
-  audioContext =
-    new AudioContext();
-
-
-  const bufferSize =
-    audioContext.sampleRate * 2;
-
-
-  const buffer =
-    audioContext.createBuffer(
-      1,
-      bufferSize,
-      audioContext.sampleRate
-    );
-
-
-  const data =
-    buffer.getChannelData(0);
-
-
-  for (
-    let i = 0;
-    i < bufferSize;
-    i++
-  ) {
-
-    data[i] =
-      Math.random() * 2 - 1;
-
-  }
-
-
-  noiseSource =
-    audioContext
-      .createBufferSource();
-
-
-  noiseSource.buffer =
-    buffer;
-
-
-  noiseSource.loop =
-    true;
-
-
-  gainNode =
-    audioContext.createGain();
-
-
-  /*
-    처음에는 아주 작게
-  */
-
-  gainNode.gain.value =
-    getGain();
-
-
-  noiseSource.connect(
-    gainNode
-  );
-
-
-  gainNode.connect(
-    audioContext.destination
-  );
-
-
-  noiseSource.start();
-
-}
-
-
-
-/* 백색소음 ON */
-
-async function turnNoiseOn() {
-
-
-  if (!audioContext) {
-
-    createWhiteNoise();
-
-  }
-
-
-  /*
-    아이폰에서
-    사용자 터치 후 재생
-  */
-
-  if (
-    audioContext.state ===
-    "suspended"
-  ) {
-
-    await audioContext.resume();
-
-  }
-
-
-  noiseOn = true;
-
-
-  gainNode.gain.setTargetAtTime(
-    getGain(),
-    audioContext.currentTime,
-    0.03
-  );
-
-
-  noiseButton.textContent =
-    "🔊 ON";
-
-
-  noiseButton.classList.add(
-    "on"
-  );
-
-
-  bottomNoiseButton.textContent =
-    "🔊";
-
-}
-
-
-
-/* 백색소음 OFF */
-
-function turnNoiseOff() {
-
-
-  noiseOn = false;
-
-
-  if (
-    gainNode &&
-    audioContext
-  ) {
-
-    gainNode.gain.setTargetAtTime(
-      0,
-      audioContext.currentTime,
-      0.03
-    );
-
-  }
-
-
-  noiseButton.textContent =
-    "🔇 OFF";
-
-
-  noiseButton.classList.remove(
-    "on"
-  );
-
-
-  bottomNoiseButton.textContent =
-    "🔇";
-
-}
-
-
-
-/* 위쪽 버튼 */
-
-noiseButton.addEventListener(
-  "click",
-  async () => {
-
-    if (noiseOn) {
-
-      turnNoiseOff();
-
-    } else {
-
-      await turnNoiseOn();
-
-    }
-
-  }
-);
-
-
-
-/* 아래쪽 버튼 */
-
-bottomNoiseButton.addEventListener(
-  "click",
-  async () => {
-
-    if (noiseOn) {
-
-      turnNoiseOff();
-
-    } else {
-
-      await turnNoiseOn();
-
-    }
-
-  }
-);
-
-
-
-/* =================================
-   음량 조절
-================================= */
-
-volumeSlider.addEventListener(
-  "input",
-  () => {
-
-
-    const value =
-      Number(
-        volumeSlider.value
-      );
-
-
-    volumeNumber.textContent =
-      value + "%";
-
-
-    if (
-      gainNode &&
-      audioContext
-    ) {
-
-      const newGain =
-        noiseOn
-          ? getGain()
-          : 0;
-
-
-      gainNode.gain.setTargetAtTime(
-        newGain,
-        audioContext.currentTime,
-        0.03
-      );
-
-    }
-
-  }
-);
-
-
-
-/* =================================
-   카메라 ON/OFF
-================================= */
+/* =========================
+   카메라 ON / OFF
+========================= */
 
 document
   .getElementById("cameraButton")
   .addEventListener(
     "click",
     () => {
-
 
       if (!camera.srcObject) {
 
@@ -1585,18 +1127,17 @@ document
 
 
 
-/* =================================
+/* =========================
    통화 종료
-================================= */
+========================= */
 
 document
-  .getElementById(
-    "hangupButton"
-  )
+  .getElementById("hangupButton")
   .addEventListener(
     "click",
     () => {
 
+      /* 카메라 종료 */
 
       if (camera.srcObject) {
 
@@ -1613,8 +1154,9 @@ document
       }
 
 
-      studyRunning =
-        false;
+      /* 공부시간 정지 */
+
+      studyRunning = false;
 
 
       clearInterval(
@@ -1625,10 +1167,30 @@ document
       studyState.textContent =
         "통화 종료";
 
+    }
+  );
 
-      if (noiseOn) {
 
-        turnNoiseOff();
+
+/* =========================
+   스피커 버튼
+========================= */
+
+document
+  .getElementById("speakerButton")
+  .addEventListener(
+    "click",
+    function() {
+
+      if (
+        this.textContent === "🔊"
+      ) {
+
+        this.textContent = "🔇";
+
+      } else {
+
+        this.textContent = "🔊";
 
       }
 
